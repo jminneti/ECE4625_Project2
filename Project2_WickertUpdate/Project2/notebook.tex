@@ -1706,12 +1706,12 @@ Received \(E_b/N_0\).
     \subsubsection{Add Some Gaussian Noise}\label{add-some-gaussian-noise}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}127}]:} \PY{n}{M} \PY{o}{=} \PY{l+m+mi}{64}\PY{p}{;}
+{\color{incolor}In [{\color{incolor}138}]:} \PY{n}{M} \PY{o}{=} \PY{l+m+mi}{64}\PY{p}{;}
           \PY{n}{EbN0\PYZus{}dB\PYZus{}plot} \PY{o}{=} \PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{)}
           \PY{n}{EbN0\PYZus{}dB} \PY{o}{=} \PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{18}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
           
           
-          \PY{n}{Nsymb} \PY{o}{=} \PY{l+m+mi}{300000}
+          \PY{n}{Nsymb} \PY{o}{=} \PY{l+m+mi}{400000}
           \PY{n}{Ns} \PY{o}{=} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{} With Ns=1 there is no need for the matched filter}
           \PY{k}{def} \PY{n+nf}{task5a}\PY{p}{(}\PY{n}{M}\PY{p}{,}\PY{n}{EbN0\PYZus{}dB\PYZus{}plot}\PY{p}{,}\PY{n}{EbN0\PYZus{}dB}\PY{p}{,}\PY{n}{Nsymb}\PY{p}{,}\PY{n}{Ns}\PY{p}{)}\PY{p}{:}
               \PY{n}{EsN0\PYZus{}dB} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{n}{log10}\PY{p}{(}\PY{n}{log2}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{p}{)}\PY{o}{+} \PY{n}{EbN0\PYZus{}dB}
@@ -1758,11 +1758,11 @@ Received \(E_b/N_0\).
 
     \begin{Verbatim}[commandchars=\\\{\}]
 kmax =  0, taumax = 0
-BEP: Nbits = 1800000, Nerror = 1475, Pe\_est = 8.194e-04
+BEP: Nbits = 2400000, Nerror = 1830, Pe\_est = 7.625e-04
 kmax =  0, taumax = 0
-BEP: Nbits = 1800000, Nerror = 392, Pe\_est = 2.178e-04
+BEP: Nbits = 2400000, Nerror = 555, Pe\_est = 2.313e-04
 kmax =  0, taumax = 0
-BEP: Nbits = 1800000, Nerror = 73, Pe\_est = 4.056e-05
+BEP: Nbits = 2400000, Nerror = 114, Pe\_est = 4.750e-05
 
     \end{Verbatim}
 
