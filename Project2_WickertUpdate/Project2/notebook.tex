@@ -1,0 +1,2129 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{5625\_Project\_2\_sp2018\_sample}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    \tableofcontents
+% These TeX commands run at the start to remove section numbering
+\renewcommand{\thesection}{\hspace*{-1.0em}}
+\renewcommand{\thesubsection}{\hspace*{-1.0em}}
+\renewcommand{\thesubsubsection}{\hspace*{-1.0em}}
+    \section{Python Project II}\label{python-project-ii}
+
+\subsection{Michael Case, Graeme Danforth, Joshua
+Minneti}\label{michael-case-graeme-danforth-joshua-minneti}
+
+\subsection{9 May 2018}\label{may-2018}
+
+\subsection{ECE 4625}\label{ece-4625}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{o}{\PYZpc{}}\PY{k}{pylab} inline
+         \PY{c+c1}{\PYZsh{}\PYZpc{}matplotlib qt}
+         \PY{k+kn}{from} \PY{n+nn}{\PYZus{}\PYZus{}future\PYZus{}\PYZus{}} \PY{k}{import} \PY{n}{division} \PY{c+c1}{\PYZsh{} use so 1/2 = 0.5, etc.}
+         \PY{k+kn}{import} \PY{n+nn}{sk\PYZus{}dsp\PYZus{}comm}\PY{n+nn}{.}\PY{n+nn}{sigsys} \PY{k}{as} \PY{n+nn}{ss}
+         \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{signal} \PY{k}{as} \PY{n+nn}{signal}
+         \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{Audio}\PY{p}{,} \PY{n}{display}
+         \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{Image}\PY{p}{,} \PY{n}{SVG}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Populating the interactive namespace from numpy and matplotlib
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{c+c1}{\PYZsh{}\PYZpc{}config InlineBackend.figure\PYZus{}formats=[\PYZsq{}svg\PYZsq{}] \PYZsh{} SVG inline viewing}
+         \PY{o}{\PYZpc{}}\PY{k}{config} InlineBackend.figure\PYZus{}formats=[\PYZsq{}pdf\PYZsq{}] \PYZsh{} render pdf figs for LaTeX
+\end{Verbatim}
+
+
+    \textbf{Import Extra Modules}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{k+kn}{import} \PY{n+nn}{sk\PYZus{}dsp\PYZus{}comm}\PY{n+nn}{.}\PY{n+nn}{digitalcom} \PY{k}{as} \PY{n+nn}{dc}
+         \PY{k+kn}{import} \PY{n+nn}{sk\PYZus{}dsp\PYZus{}comm}\PY{n+nn}{.}\PY{n+nn}{synchronization} \PY{k}{as} \PY{n+nn}{PLL} \PY{c+c1}{\PYZsh{} just in case we need it}
+\end{Verbatim}
+
+\newpage
+    \section{Part I: PCM Encoding and
+Decoding}\label{part-i-pcm-encoding-and-decoding}
+
+The functions are housed in the module scikit-dsp-comm module
+`digitalcom.py.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ PCM_encode(x,N_bits):}
+    \CommentTok{"""}
+\CommentTok{    x_bits = PCM_encode(x,N_bits)}
+\CommentTok{    /////////////////////////////////////////////////////////////}
+\CommentTok{         x = signal samples to be PCM encoded}
+\CommentTok{    N_bits = bit precision of PCM samples}
+\CommentTok{    x_bits = encoded serial bit stream of 0/1 values. MSB first.}
+\CommentTok{    /////////////////////////////////////////////////////////////}
+\CommentTok{    Mark Wickert, March 2015}
+\CommentTok{    """}
+\NormalTok{    xq }\OperatorTok{=}\NormalTok{ np.int16(np.rint(x}\OperatorTok{*}\DecValTok{2}\OperatorTok{**}\NormalTok{(N_bits}\OperatorTok{-}\DecValTok{1}\NormalTok{)))}
+\NormalTok{    x_bits }\OperatorTok{=}\NormalTok{ np.zeros((N_bits,}\BuiltInTok{len}\NormalTok{(xq)))}
+    \ControlFlowTok{for}\NormalTok{ k, xk }\KeywordTok{in} \BuiltInTok{enumerate}\NormalTok{(xq):}
+\NormalTok{        x_bits[:,k] }\OperatorTok{=}\NormalTok{ tobin(xk,N_bits)}
+    \CommentTok{# Reshape into a serial bit stream}
+\NormalTok{    x_bits }\OperatorTok{=}\NormalTok{ np.reshape(x_bits,(}\DecValTok{1}\NormalTok{,}\BuiltInTok{len}\NormalTok{(x)}\OperatorTok{*}\NormalTok{N_bits),}\StringTok{'F'}\NormalTok{)}
+    \ControlFlowTok{return}\NormalTok{ int16(x_bits.flatten())}
+
+
+\CommentTok{# A helper function for PCM_encode}
+\KeywordTok{def}\NormalTok{ tobin(data, width):}
+\NormalTok{    data_str }\OperatorTok{=} \BuiltInTok{bin}\NormalTok{(data }\OperatorTok{&}\NormalTok{ (}\DecValTok{2}\OperatorTok{**}\NormalTok{width}\OperatorTok{-}\DecValTok{1}\NormalTok{))[}\DecValTok{2}\NormalTok{:].zfill(width)}
+    \ControlFlowTok{return} \BuiltInTok{map}\NormalTok{( }\BuiltInTok{int}\NormalTok{, }\BuiltInTok{tuple}\NormalTok{( data_str ) )}
+    
+    
+\KeywordTok{def}\NormalTok{ PCM_decode(x_bits,N_bits):}
+    \CommentTok{"""}
+\CommentTok{    xhat = PCM_decode(x_bits,N_bits)}
+\CommentTok{    /////////////////////////////////////////////////////////////}
+\CommentTok{    x_bits = serial bit stream of 0/1 values. The length of }
+\CommentTok{             x_bits must be a multiple of N_bits}
+\CommentTok{    N_bits = bit precision of PCM samples}
+\CommentTok{      xhat = decoded PCM signal samples}
+\CommentTok{    /////////////////////////////////////////////////////////////}
+\CommentTok{    Mark Wickert, March 2015}
+\CommentTok{    """}
+\NormalTok{    N_samples }\OperatorTok{=} \BuiltInTok{len}\NormalTok{(x_bits)}\OperatorTok{//}\NormalTok{N_bits}
+    \CommentTok{# Convert serial bit stream into parallel words with each }
+    \CommentTok{# column holdingthe N_bits binary sample value}
+\NormalTok{    xrs_bits }\OperatorTok{=}\NormalTok{ x_bits.copy()}
+\NormalTok{    xrs_bits }\OperatorTok{=}\NormalTok{ np.reshape(xrs_bits,(N_bits,N_samples),}\StringTok{'F'}\NormalTok{)}
+    \CommentTok{# Convert N_bits binary words into signed integer values}
+\NormalTok{    xq }\OperatorTok{=}\NormalTok{ np.zeros(N_samples)}
+\NormalTok{    w }\OperatorTok{=} \DecValTok{2}\OperatorTok{**}\NormalTok{np.arange(N_bits}\OperatorTok{-}\DecValTok{1}\NormalTok{,}\OperatorTok{-}\DecValTok{1}\NormalTok{,}\OperatorTok{-}\DecValTok{1}\NormalTok{) }\CommentTok{# binary weights for bin }
+                                     \CommentTok{# to dec conversion}
+    \ControlFlowTok{for}\NormalTok{ k }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(N_samples):}
+\NormalTok{       xq[k] }\OperatorTok{=}\NormalTok{ np.dot(xrs_bits[:,k],w) }\OperatorTok{-}\NormalTok{ xrs_bits[}\DecValTok{0}\NormalTok{,k]}\OperatorTok{*}\DecValTok{2}\OperatorTok{**}\NormalTok{N_bits}
+    \ControlFlowTok{return}\NormalTok{ xq}\OperatorTok{/}\DecValTok{2}\OperatorTok{**}\NormalTok{(N_bits}\OperatorTok{-}\DecValTok{1}\NormalTok{)}
+    
+    
+\KeywordTok{def}\NormalTok{ AWGN_chan(x_bits,EBN0_dB):}
+    \CommentTok{"""}
+\CommentTok{    ////////////////////////////////////////////////////////////////////////}
+\CommentTok{     x_bits = serial bit stream of 0/1 values.}
+\CommentTok{    EBNO_dB = energy per bit to noise power density ratio in dB of the}
+\CommentTok{              serial bit stream sent through the AWGN channel. Frequently}
+\CommentTok{              we equate EBN0 to SNR in link budget calculations}
+\CommentTok{     y_bits = received serial bit stream following hard decisions. This bit}
+\CommentTok{              will have bit errors. To check the estimated bit error}
+\CommentTok{              probability use digitalcom.BPSK_bep() or simply}
+\CommentTok{              >> Pe_est = sum(xor(x_bits,y_bits))/length(x_bits);  }
+\CommentTok{    ////////////////////////////////////////////////////////////////////////}
+\CommentTok{    }
+\CommentTok{    Mark Wickert, March 2015}
+\CommentTok{    """}
+\NormalTok{    x_bits }\OperatorTok{=} \DecValTok{2}\OperatorTok{*}\NormalTok{x_bits }\OperatorTok{-} \DecValTok{1} \CommentTok{# convert from 0/1 to -1/1 signal values}
+\NormalTok{    var_noise }\OperatorTok{=} \DecValTok{10}\OperatorTok{**}\NormalTok{(}\OperatorTok{-}\NormalTok{EBN0_dB}\OperatorTok{/}\DecValTok{10}\NormalTok{)}\OperatorTok{/}\DecValTok{2}\OperatorTok{;}
+\NormalTok{    y_bits }\OperatorTok{=}\NormalTok{ x_bits }\OperatorTok{+}\NormalTok{ np.sqrt(var_noise)}\OperatorTok{*}\NormalTok{np.random.randn(size(x_bits))}
+
+    \CommentTok{# Make hard decisions}
+\NormalTok{    y_bits }\OperatorTok{=}\NormalTok{ np.sign(y_bits) }\CommentTok{# -1/+1 signal values}
+\NormalTok{    y_bits }\OperatorTok{=}\NormalTok{ (y_bits}\OperatorTok{+}\DecValTok{1}\NormalTok{)}\OperatorTok{/}\DecValTok{2} \CommentTok{# convert back to 0/1 binary values}
+    \ControlFlowTok{return}\NormalTok{ y_bits}
+\end{Highlighting}
+\end{Shaded}
+
+    \textbf{BPSK Theoretical BEP Calculation for Part I}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{c+c1}{\PYZsh{} Use the Q() function in digitalcom to find Pe\PYZus{}thy}
+         \PY{n}{EbN0\PYZus{}dB} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{n}{Pe\PYZus{}thy} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{Q\PYZus{}fctn}\PY{p}{(}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{n}{EbN0\PYZus{}dB}\PY{o}{/}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pe\PYZus{}thy = }\PY{l+s+si}{\PYZpc{}1.3e}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{Pe\PYZus{}thy}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Pe\_thy = 5.954e-03
+
+    \end{Verbatim}
+\newpage
+    \section{Part I Tasks}\label{part-i-tasks}
+
+    \subsection{Task 1a and 1b}\label{task-1a-and-1b}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{n} \PY{o}{=} \PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{400}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Fill in missing code:}
+         \PY{n}{x} \PY{o}{=} \PY{n}{arange}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mf}{0.01}\PY{p}{)}\PY{p}{;}
+         
+         \PY{n}{xbits} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{PCM\PYZus{}encode}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{xq} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{PCM\PYZus{}decode}\PY{p}{(}\PY{n}{xbits}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{plot}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{x}\PY{p}{)}
+         \PY{n}{plot}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{xq}\PY{p}{)}
+         \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PCM Encode/Decode Ramp Response}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Input \PYZdl{}x[n]\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Output \PYZdl{}x\PYZus{}Q[n]\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x[n]\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZus{}Q[n]\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The largest quantization level for \(N_B = 5\) will be \(1-2^{-(5-1)}\),
+or 0.9375. It is clear on the plot that when this level is reached on
+the vertical axis, the decoded ramp response 'underflows' back to -1.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{k}{def} \PY{n+nf}{PCM\PYZus{}encode}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{N\PYZus{}bits}\PY{p}{,} \PY{n}{sat\PYZus{}mode} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Add saturation to dc.PCM\PYZus{}encode}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{c+c1}{\PYZsh{} Write code here}
+             \PY{k}{if} \PY{n}{sat\PYZus{}mode}\PY{p}{:}
+                 \PY{n}{x\PYZus{}clip} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{clip}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{N\PYZus{}bits}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}formula given in doc}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{x\PYZus{}clip} \PY{o}{=} \PY{n}{x}
+                 
+             \PY{n}{x\PYZus{}bits} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{PCM\PYZus{}encode}\PY{p}{(}\PY{n}{x\PYZus{}clip}\PY{p}{,} \PY{n}{N\PYZus{}bits}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{x\PYZus{}bits}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{n} \PY{o}{=} \PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{400}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{arange}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mf}{0.01}\PY{p}{)}\PY{p}{;}
+         \PY{n}{xbits} \PY{o}{=} \PY{n}{PCM\PYZus{}encode}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{xq} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{PCM\PYZus{}decode}\PY{p}{(}\PY{n}{xbits}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{plot}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{x}\PY{p}{)}
+         \PY{n}{plot}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{xq}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Added line:}
+         \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PCM Encode/Decode Ramp Response With Clipping Function}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Input \PYZdl{}x[n]\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Output \PYZdl{}x\PYZus{}Q[n]\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x[n]\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZus{}Q[n]\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Now, instead of overflowing when the signal reaches the maximum
+quantization level, the output simply saturates at that level. This
+confirms that the clipping function is working as intended.
+
+    \subsection{Task 2a and 2b: Test with Speech
+File}\label{task-2a-and-2b-test-with-speech-file}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{100000}\PY{p}{;} \PY{c+c1}{\PYZsh{} number of speech samples to process}
+         \PY{n}{fs}\PY{p}{,}\PY{n}{m1} \PY{o}{=} \PY{n}{ss}\PY{o}{.}\PY{n}{from\PYZus{}wav}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OSR\PYZus{}uk\PYZus{}000\PYZus{}0050\PYZus{}8k.wav}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{m1} \PY{o}{=} \PY{n}{m1}\PY{p}{[}\PY{p}{:}\PY{n}{N}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Include some scaling to be sure to fill the dynamic range, but not saturate}
+         \PY{n}{m1\PYZus{}max} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{m1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{g} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{m1\PYZus{}max}    \PY{c+c1}{\PYZsh{}normalize the message signal to amplitude of 1}
+         
+         \PY{n}{SNR\PYZus{}chan} \PY{o}{=} \PY{l+m+mi}{100} \PY{c+c1}{\PYZsh{} High SNR}
+         \PY{n}{MSE} \PY{o}{=} \PY{n}{ndarray}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{k}{for} \PY{n}{N\PYZus{}B} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{17}\PY{p}{)}\PY{p}{:}
+             
+             \PY{n}{m1\PYZus{}enc} \PY{o}{=} \PY{n}{PCM\PYZus{}encode}\PY{p}{(}\PY{n}{g}\PY{o}{*}\PY{n}{m1}\PY{p}{,}\PY{n}{N\PYZus{}B}\PY{p}{)}
+             \PY{n}{m1\PYZus{}enc\PYZus{}hat} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{AWGN\PYZus{}chan}\PY{p}{(}\PY{n}{m1\PYZus{}enc}\PY{p}{,}\PY{n}{SNR\PYZus{}chan}\PY{p}{)}
+         
+             \PY{n}{m1\PYZus{}hat} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{PCM\PYZus{}decode}\PY{p}{(}\PY{n}{m1\PYZus{}enc\PYZus{}hat}\PY{p}{,}\PY{n}{N\PYZus{}B}\PY{p}{)}
+             
+             \PY{n}{fname} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NB\PYZus{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{.wav}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{N\PYZus{}B}\PY{p}{)}
+             \PY{n}{ss}\PY{o}{.}\PY{n}{to\PYZus{}wav}\PY{p}{(}\PY{n}{fname}\PY{p}{,}\PY{l+m+mi}{8000}\PY{p}{,}\PY{n}{m1\PYZus{}hat}\PY{p}{)}
+         
+             \PY{n}{MSE} \PY{o}{=} \PY{n}{append}\PY{p}{(}\PY{n}{MSE}\PY{p}{,}\PY{n}{mean}\PY{p}{(}\PY{p}{(}\PY{n}{m1\PYZus{}hat}\PY{o}{\PYZhy{}}\PY{n}{g}\PY{o}{*}\PY{n}{m1}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+             
+         \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{scatter}\PY{p}{(}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{17}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{10}\PY{o}{*}\PY{n}{log10}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{MSE}\PY{p}{)}\PY{p}{)}
+         \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of bits}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Inverse of mean\PYZhy{}squared\PYZhy{}error (dB)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE test based on number of encoding bits}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Part A}\label{part-a}
+
+The dB value of the MSE inverse increases as the number of encoding bits
+increases. This dB increase has a roughly linear characteristic, as seen
+in the plot above. Since a high inverse MSE indicates low error, it can
+easily be seen that increasing the number of bits in the encoder
+desirably reduces mean-squared-error for the received signal.
+Additionally, since MSE is inversely proportional, the graph also
+indicates that more bits in the encoder increase the quantization SNR.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{c+c1}{\PYZsh{} 1 bits}
+         \PY{n}{Audio}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NB\PYZus{}1.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}80}]:} <IPython.lib.display.Audio object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{c+c1}{\PYZsh{} 2 bits}
+         \PY{n}{Audio}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NB\PYZus{}2.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}81}]:} <IPython.lib.display.Audio object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{c+c1}{\PYZsh{} 3 bits}
+         \PY{n}{Audio}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NB\PYZus{}3.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}82}]:} <IPython.lib.display.Audio object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{c+c1}{\PYZsh{} 4 bits}
+         \PY{n}{Audio}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NB\PYZus{}4.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}83}]:} <IPython.lib.display.Audio object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{c+c1}{\PYZsh{} 5 bits}
+         \PY{n}{Audio}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NB\PYZus{}5.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}84}]:} <IPython.lib.display.Audio object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{c+c1}{\PYZsh{} 6 bits}
+         \PY{n}{Audio}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NB\PYZus{}6.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}85}]:} <IPython.lib.display.Audio object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{c+c1}{\PYZsh{} 7 bits}
+         \PY{n}{Audio}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NB\PYZus{}7.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}86}]:} <IPython.lib.display.Audio object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{c+c1}{\PYZsh{} 8 bits}
+         \PY{n}{Audio}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NB\PYZus{}8.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}87}]:} <IPython.lib.display.Audio object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{c+c1}{\PYZsh{} 9 bits}
+         \PY{n}{Audio}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NB\PYZus{}9.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}88}]:} <IPython.lib.display.Audio object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{c+c1}{\PYZsh{} 10 bits}
+         \PY{n}{Audio}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NB\PYZus{}10.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}89}]:} <IPython.lib.display.Audio object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{c+c1}{\PYZsh{} 11 bits}
+         \PY{n}{Audio}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NB\PYZus{}11.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}90}]:} <IPython.lib.display.Audio object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{c+c1}{\PYZsh{} 12 bits}
+         \PY{n}{Audio}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NB\PYZus{}12.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}91}]:} <IPython.lib.display.Audio object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{c+c1}{\PYZsh{} 13 bits}
+         \PY{n}{Audio}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NB\PYZus{}13.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}92}]:} <IPython.lib.display.Audio object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{c+c1}{\PYZsh{} 14 bits}
+         \PY{n}{Audio}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NB\PYZus{}14.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}93}]:} <IPython.lib.display.Audio object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{c+c1}{\PYZsh{} 15 bits}
+         \PY{n}{Audio}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NB\PYZus{}15.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}94}]:} <IPython.lib.display.Audio object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{c+c1}{\PYZsh{} 16 bits}
+         \PY{n}{Audio}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NB\PYZus{}16.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}95}]:} <IPython.lib.display.Audio object>
+\end{Verbatim}
+            
+    \subsubsection{Part B}\label{part-b}
+
+The absolute minimum number of bits that was intelligible when listening
+to the output was somehwere around 4. However, it was extremely
+difficult to understand. The minimum number of encoding bits that we
+felt provided acceptable intelligibility was 6. This level of
+quantization had a low enough MSE that most offensive static noise and
+clipping was not noticeable in the output audio, and thus it was decided
+that this quantization level was the minimum acceptable resolution for
+this voice communication system
+
+    \subsection{Tasks 3a-d: Obtain SNR Data and
+Comments}\label{tasks-3a-d-obtain-snr-data-and-comments}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{n}{N\PYZus{}B} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{n}{SNR\PYZus{}chan} \PY{o}{=} \PY{l+m+mi}{100}
+         \PY{n}{a} \PY{o}{=} \PY{n}{PCM\PYZus{}encode}\PY{p}{(}\PY{n}{m1}\PY{p}{,}\PY{n}{N\PYZus{}B}\PY{p}{)} \PY{c+c1}{\PYZsh{} use your PCM\PYZus{}encode with clipping}
+         \PY{n}{a\PYZus{}hat} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{AWGN\PYZus{}chan}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{SNR\PYZus{}chan}\PY{p}{)}
+         \PY{n}{m1\PYZus{}hat} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{PCM\PYZus{}decode}\PY{p}{(}\PY{n}{a\PYZus{}hat}\PY{p}{,}\PY{n}{N\PYZus{}B}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} calculation to find MSE}
+\end{Verbatim}
+
+
+    \subsubsection{Compare Visually}\label{compare-visually}
+
+To gain confidence in what you are doing compare the input and output
+waveforms via an overlay plot or by plotting the difference.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}97}]:} \PY{n}{plot}\PY{p}{(}\PY{n}{m1}\PY{p}{)}
+         \PY{n}{plot}\PY{p}{(}\PY{n}{m1\PYZus{}hat}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} or}
+         \PY{c+c1}{\PYZsh{}plot(m1\PYZus{}hat \PYZhy{} m1)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}97}]:} [<matplotlib.lines.Line2D at 0x11862978>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Part A)}\label{part-a}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{c+c1}{\PYZsh{}define number of bits}
+         \PY{n}{N\PYZus{}B} \PY{o}{=} \PY{l+m+mi}{8}
+         
+         \PY{c+c1}{\PYZsh{}define SNR vector}
+         \PY{n}{SNR\PYZus{}chan} \PY{o}{=} \PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{21}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{MSE\PYZus{}8} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{size}\PY{p}{(}\PY{n}{SNR\PYZus{}chan}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}loop through and find MSE for each SNR}
+         \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{size}\PY{p}{(}\PY{n}{SNR\PYZus{}chan}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+         
+             \PY{n}{m1\PYZus{}enc} \PY{o}{=} \PY{n}{PCM\PYZus{}encode}\PY{p}{(}\PY{n}{g}\PY{o}{*}\PY{n}{m1}\PY{p}{,}\PY{n}{N\PYZus{}B}\PY{p}{)}
+             \PY{n}{m1\PYZus{}enc\PYZus{}hat} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{AWGN\PYZus{}chan}\PY{p}{(}\PY{n}{m1\PYZus{}enc}\PY{p}{,}\PY{n}{SNR\PYZus{}chan}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{)}
+             \PY{n}{m1\PYZus{}hat} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{PCM\PYZus{}decode}\PY{p}{(}\PY{n}{m1\PYZus{}enc\PYZus{}hat}\PY{p}{,}\PY{n}{N\PYZus{}B}\PY{p}{)}
+             
+             \PY{n}{MSE\PYZus{}8}\PY{p}{[}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{ii}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{size}\PY{p}{(}\PY{n}{m1}\PY{p}{)}\PY{o}{*}\PY{n+nb}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{m1\PYZus{}hat}\PY{o}{\PYZhy{}}\PY{n}{g}\PY{o}{*}\PY{n}{m1}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+             
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{g}\PY{o}{*}\PY{n}{m1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{m1\PYZus{}hat}\PY{p}{)}
+         \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time (n)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{amplitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m1\PYZus{}hat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}98}]:} <matplotlib.legend.Legend at 0x54f24e0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Part B)}\label{part-b}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{c+c1}{\PYZsh{}define number of bits}
+         \PY{n}{N\PYZus{}B} \PY{o}{=} \PY{l+m+mi}{6}
+         
+         \PY{c+c1}{\PYZsh{}define SNR vector}
+         \PY{n}{SNR\PYZus{}chan} \PY{o}{=} \PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{21}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{MSE\PYZus{}6} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{size}\PY{p}{(}\PY{n}{SNR\PYZus{}chan}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}loop through and find MSE for each SNR}
+         \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{size}\PY{p}{(}\PY{n}{SNR\PYZus{}chan}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+         
+             \PY{n}{m1\PYZus{}enc} \PY{o}{=} \PY{n}{PCM\PYZus{}encode}\PY{p}{(}\PY{n}{g}\PY{o}{*}\PY{n}{m1}\PY{p}{,}\PY{n}{N\PYZus{}B}\PY{p}{)}
+             \PY{n}{m1\PYZus{}enc\PYZus{}hat} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{AWGN\PYZus{}chan}\PY{p}{(}\PY{n}{m1\PYZus{}enc}\PY{p}{,}\PY{n}{SNR\PYZus{}chan}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{)}
+             \PY{n}{m1\PYZus{}hat} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{PCM\PYZus{}decode}\PY{p}{(}\PY{n}{m1\PYZus{}enc\PYZus{}hat}\PY{p}{,}\PY{n}{N\PYZus{}B}\PY{p}{)}
+             
+             \PY{n}{MSE\PYZus{}6}\PY{p}{[}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{ii}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{size}\PY{p}{(}\PY{n}{m1}\PY{p}{)}\PY{o}{*}\PY{n+nb}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{m1\PYZus{}hat}\PY{o}{\PYZhy{}}\PY{n}{g}\PY{o}{*}\PY{n}{m1}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{g}\PY{o}{*}\PY{n}{m1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{m1\PYZus{}hat}\PY{p}{)}
+         \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time (n)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{amplitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m1\PYZus{}hat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}99}]:} <matplotlib.legend.Legend at 0xe613e10>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Part C)}\label{part-c}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{c+c1}{\PYZsh{}define number of bits}
+          \PY{n}{N\PYZus{}B} \PY{o}{=} \PY{l+m+mi}{10}
+          
+          \PY{c+c1}{\PYZsh{}define SNR vector}
+          \PY{n}{SNR\PYZus{}chan} \PY{o}{=} \PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{21}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{MSE\PYZus{}10} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{size}\PY{p}{(}\PY{n}{SNR\PYZus{}chan}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}loop through and find MSE for each SNR}
+          \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{size}\PY{p}{(}\PY{n}{SNR\PYZus{}chan}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+          
+              \PY{n}{m1\PYZus{}enc} \PY{o}{=} \PY{n}{PCM\PYZus{}encode}\PY{p}{(}\PY{n}{g}\PY{o}{*}\PY{n}{m1}\PY{p}{,}\PY{n}{N\PYZus{}B}\PY{p}{)}
+              \PY{n}{m1\PYZus{}enc\PYZus{}hat} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{AWGN\PYZus{}chan}\PY{p}{(}\PY{n}{m1\PYZus{}enc}\PY{p}{,}\PY{n}{SNR\PYZus{}chan}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{)}
+              \PY{n}{m1\PYZus{}hat} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{PCM\PYZus{}decode}\PY{p}{(}\PY{n}{m1\PYZus{}enc\PYZus{}hat}\PY{p}{,}\PY{n}{N\PYZus{}B}\PY{p}{)}
+              
+              \PY{n}{MSE\PYZus{}10}\PY{p}{[}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{ii}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{size}\PY{p}{(}\PY{n}{m1}\PY{p}{)}\PY{o}{*}\PY{n+nb}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{m1\PYZus{}hat}\PY{o}{\PYZhy{}}\PY{n}{g}\PY{o}{*}\PY{n}{m1}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+              
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{g}\PY{o}{*}\PY{n}{m1}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{m1\PYZus{}hat}\PY{p}{)}
+          \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time (n)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{amplitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m1\PYZus{}hat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}100}]:} <matplotlib.legend.Legend at 0xbb75a58>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Plots}\label{plots}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{c+c1}{\PYZsh{}Compare SNR and MSE inverse for each N\PYZus{}B}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{SNR\PYZus{}chan}\PY{p}{,}\PY{l+m+mi}{10}\PY{o}{*}\PY{n}{log10}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{MSE\PYZus{}8}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{SNR\PYZus{}chan}\PY{p}{,}\PY{l+m+mi}{10}\PY{o}{*}\PY{n}{log10}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{MSE\PYZus{}6}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{SNR\PYZus{}chan}\PY{p}{,}\PY{l+m+mi}{10}\PY{o}{*}\PY{n}{log10}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{MSE\PYZus{}10}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SNR (dB)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Inverse of mean\PYZhy{}squared\PYZhy{}error (dB)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE test based on SNR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+          \PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{8 bits}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{6 bits}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{10 bits}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_49_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Part D)}\label{part-d}
+
+As expected, the SNR has a noticeable effect on the error of the
+recieved signal. A high SNR increases the inverse mean squared error,
+which indicates that error is inversely proportional with SNR, as
+expected. Additionally, the number of quantization bits has an effect.
+Generally, one would expect a higher number of bits to correspond to a
+lower MSE, and thus a higher \emph{inverse} MSE. This is verified with
+the above plot, as the maximum inverse MSE for 10 bit encoding is over
+60dB, while the same quantity for 6 bit encoding is just over 40 dB.
+This verifies that the channel and encoding scheme behave as expected
+with relation to number of quantization bits and SNR.
+
+    \section{Part II: QAM Background
+Examples}\label{part-ii-qam-background-examples}
+
+Begin with some functions for working with QAM. Specifically, *
+\texttt{QAM\_gray\_encode\_bb} which produces single-sample per symbol
+QAM waveforms and \texttt{Ns} sample per symbol waveforms with pulse
+shaping. Binary to Gray mapping is performed using look-up-tables
+(LUTs). Soon this function will be merged into \texttt{digitalcom.py} on
+GitHub. * \texttt{QAM\_gray\_decode} which takes as input single sample
+per QAM symbol inputs, with noise and interference, and decodes them to
+a serial bit stream Gray to binary LUTs. Soon this function will be
+merged into \texttt{digitalcom.py} on GitHub.
+
+\subsection{The QAM Encoder/Decoder with Gray Mapping
+Functions}\label{the-qam-encoderdecoder-with-gray-mapping-functions}
+
+Soon these functions will be merged into the \texttt{digitalcom.py}
+module on GitHub, for now they are also here in this notebook.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{k}{def} \PY{n+nf}{QAM\PYZus{}gray\PYZus{}encode\PYZus{}bb}\PY{p}{(}\PY{n}{N\PYZus{}symb}\PY{p}{,}\PY{n}{Ns}\PY{p}{,}\PY{n}{M}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,}\PY{n}{pulse}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.35}\PY{p}{,}\PY{n}{ext\PYZus{}data}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{    QAM\PYZus{}gray\PYZus{}bb: A gray code mapped QAM complex baseband transmitter }
+          \PY{l+s+sd}{    x,b,tx\PYZus{}data = QAM\PYZus{}gray\PYZus{}bb(K,Ns,M)}
+          
+          \PY{l+s+sd}{    //////////// Inputs //////////////////////////////////////////////////}
+          \PY{l+s+sd}{      N\PYZus{}symb = the number of symbols to process}
+          \PY{l+s+sd}{          Ns = number of samples per symbol}
+          \PY{l+s+sd}{           M = modulation order: 2, 4, 16, 64, 256 QAM}
+          \PY{l+s+sd}{               Note 2 \PYZlt{}=\PYZgt{} BPSK, 4 \PYZlt{}=\PYZgt{} QPSK}
+          \PY{l+s+sd}{       alpha = squareroot raised codine pulse shape bandwidth factor.}
+          \PY{l+s+sd}{               For DOCSIS alpha = 0.12 to 0.18. In general alpha can }
+          \PY{l+s+sd}{               range over 0 \PYZlt{} alpha \PYZlt{} 1.}
+          \PY{l+s+sd}{       pulse = \PYZsq{}rect\PYZsq{}, \PYZsq{}src\PYZsq{}, or \PYZsq{}rc\PYZsq{}}
+          \PY{l+s+sd}{    //////////// Outputs /////////////////////////////////////////////////}
+          \PY{l+s+sd}{           x = complex baseband digital modulation}
+          \PY{l+s+sd}{           b = transmitter shaping filter, rectangle or SRC}
+          \PY{l+s+sd}{     tx\PYZus{}data = xI+1j*xQ = inphase symbol sequence + }
+          \PY{l+s+sd}{               1j*quadrature symbol sequence}
+          
+          \PY{l+s+sd}{    Mark Wickert April 2018}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}} 
+              \PY{c+c1}{\PYZsh{} Create a random bit stream then encode using gray code mapping}
+              \PY{c+c1}{\PYZsh{} Gray code LUTs for 4, 16, 64, and 256 QAM}
+              \PY{c+c1}{\PYZsh{} which employs M = 2, 4, 6, and 8 bits per symbol  }
+              \PY{n}{bin2gray1} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+              \PY{n}{bin2gray2} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}
+              \PY{n}{bin2gray3} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]} \PY{c+c1}{\PYZsh{} arange(8) }
+              \PY{n}{bin2gray4} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{13}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}
+              \PY{n}{x\PYZus{}m} \PY{o}{=} \PY{n}{sqrt}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+              \PY{c+c1}{\PYZsh{} Create the serial bit stream [Ibits,Qbits,Ibits,Qbits,...], msb to lsb}
+              \PY{c+c1}{\PYZsh{} except for the case M = 2}
+              \PY{k}{if} \PY{n}{N\PYZus{}symb} \PY{o}{==} \PY{k+kc}{None}\PY{p}{:}
+                  \PY{c+c1}{\PYZsh{} Truncate so an integer number of symbols is formed}
+                  \PY{n}{N\PYZus{}symb} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{floor}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{ext\PYZus{}data}\PY{p}{)}\PY{o}{/}\PY{n}{log2}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{data} \PY{o}{=} \PY{n}{ext\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{n}{N\PYZus{}symb}\PY{o}{*}\PY{n+nb}{int}\PY{p}{(}\PY{n}{log2}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{data} \PY{o}{=} \PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{n+nb}{int}\PY{p}{(}\PY{n}{log2}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{N\PYZus{}symb}\PY{p}{)}
+              \PY{n}{x\PYZus{}IQ} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{n}{N\PYZus{}symb}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n}{complex128}\PY{p}{)}
+              \PY{n}{N\PYZus{}word} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{log2}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} binary weights for converting binary to decimal using dot()}
+              \PY{n}{w} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{N\PYZus{}word}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+              \PY{k}{if} \PY{n}{M} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{:} \PY{c+c1}{\PYZsh{} Special case of BPSK for convenience}
+                  \PY{n}{x\PYZus{}IQ} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{data} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+                  \PY{n}{x\PYZus{}m} \PY{o}{=} \PY{l+m+mi}{1}
+              \PY{k}{elif} \PY{n}{M} \PY{o}{==} \PY{l+m+mi}{4}\PY{p}{:} \PY{c+c1}{\PYZsh{} total constellation points}
+                  \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N\PYZus{}symb}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{wordI} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{p}{:}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{p}{]}
+                      \PY{n}{wordQ} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{o}{+}\PY{n}{N\PYZus{}word}\PY{p}{:}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{o}{+}\PY{n}{N\PYZus{}word}\PY{p}{]}
+                      \PY{n}{x\PYZus{}IQ}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{bin2gray1}\PY{p}{[}\PY{n}{dot}\PY{p}{(}\PY{n}{wordI}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{x\PYZus{}m}\PY{p}{)} \PY{o}{+} \PYZbs{}
+                             \PY{l+m+mi}{1}\PY{n}{j}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{bin2gray1}\PY{p}{[}\PY{n}{dot}\PY{p}{(}\PY{n}{wordQ}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{x\PYZus{}m}\PY{p}{)}
+              \PY{k}{elif} \PY{n}{M} \PY{o}{==} \PY{l+m+mi}{16}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N\PYZus{}symb}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{wordI} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{p}{:}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{p}{]}
+                      \PY{n}{wordQ} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{o}{+}\PY{n}{N\PYZus{}word}\PY{p}{:}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{o}{+}\PY{n}{N\PYZus{}word}\PY{p}{]}
+                      \PY{n}{x\PYZus{}IQ}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{bin2gray2}\PY{p}{[}\PY{n}{dot}\PY{p}{(}\PY{n}{wordI}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{x\PYZus{}m}\PY{p}{)} \PY{o}{+} \PYZbs{}
+                             \PY{l+m+mi}{1}\PY{n}{j}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{bin2gray2}\PY{p}{[}\PY{n}{dot}\PY{p}{(}\PY{n}{wordQ}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{x\PYZus{}m}\PY{p}{)}
+              \PY{k}{elif} \PY{n}{M} \PY{o}{==} \PY{l+m+mi}{64}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N\PYZus{}symb}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{wordI} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{p}{:}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{p}{]}
+                      \PY{n}{wordQ} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{o}{+}\PY{n}{N\PYZus{}word}\PY{p}{:}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{o}{+}\PY{n}{N\PYZus{}word}\PY{p}{]}
+                      \PY{n}{x\PYZus{}IQ}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{bin2gray3}\PY{p}{[}\PY{n}{dot}\PY{p}{(}\PY{n}{wordI}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{x\PYZus{}m}\PY{p}{)} \PY{o}{+} \PYZbs{}
+                             \PY{l+m+mi}{1}\PY{n}{j}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{bin2gray3}\PY{p}{[}\PY{n}{dot}\PY{p}{(}\PY{n}{wordQ}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{x\PYZus{}m}\PY{p}{)}
+              \PY{k}{elif} \PY{n}{M} \PY{o}{==} \PY{l+m+mi}{256}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N\PYZus{}symb}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{wordI} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{p}{:}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{p}{]}
+                      \PY{n}{wordQ} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{o}{+}\PY{n}{N\PYZus{}word}\PY{p}{:}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{o}{+}\PY{n}{N\PYZus{}word}\PY{p}{]}
+                      \PY{n}{x\PYZus{}IQ}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{bin2gray4}\PY{p}{[}\PY{n}{dot}\PY{p}{(}\PY{n}{wordI}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{x\PYZus{}m}\PY{p}{)} \PY{o}{+} \PYZbs{}
+                             \PY{l+m+mi}{1}\PY{n}{j}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{bin2gray4}\PY{p}{[}\PY{n}{dot}\PY{p}{(}\PY{n}{wordQ}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{x\PYZus{}m}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M must be 2, 4, 16, 64, 256}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}        
+              
+              \PY{k}{if} \PY{n}{Ns} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{:}
+                  \PY{c+c1}{\PYZsh{} Design the pulse shaping filter to be of duration 12 }
+                  \PY{c+c1}{\PYZsh{} symbols and fix the excess bandwidth factor at alpha = 0.35}
+                  \PY{k}{if} \PY{n}{pulse}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{src}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                      \PY{n}{b} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{sqrt\PYZus{}rc\PYZus{}imp}\PY{p}{(}\PY{n}{Ns}\PY{p}{,}\PY{n}{alpha}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}
+                  \PY{k}{elif} \PY{n}{pulse}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                      \PY{n}{b} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{rc\PYZus{}imp}\PY{p}{(}\PY{n}{Ns}\PY{p}{,}\PY{n}{alpha}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}    
+                  \PY{k}{elif} \PY{n}{pulse}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                      \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{Ns}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}alt. rect. pulse shape}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pulse shape must be src, rc, or rect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{c+c1}{\PYZsh{} Filter the impulse train signal}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{signal}\PY{o}{.}\PY{n}{lfilter}\PY{p}{(}\PY{n}{b}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{dc}\PY{o}{.}\PY{n}{upsample}\PY{p}{(}\PY{n}{x\PYZus{}IQ}\PY{p}{,}\PY{n}{Ns}\PY{p}{)}\PY{p}{)}
+                  \PY{c+c1}{\PYZsh{} Scale shaping filter to have unity DC gain}
+                  \PY{n}{b} \PY{o}{=} \PY{n}{b}\PY{o}{/}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{b}\PY{p}{)}
+                  \PY{k}{return} \PY{n}{x}\PY{o}{/}\PY{n}{x\PYZus{}m}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{data}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{k}{return} \PY{n}{x\PYZus{}IQ}\PY{o}{/}\PY{n}{x\PYZus{}m}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{data}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{k}{def} \PY{n+nf}{QAM\PYZus{}gray\PYZus{}decode}\PY{p}{(}\PY{n}{x\PYZus{}hat}\PY{p}{,}\PY{n}{M} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{    Decode MQAM IQ symbols to a serial bit stream using}
+          \PY{l+s+sd}{    gray2bin decoding}
+          \PY{l+s+sd}{    }
+          \PY{l+s+sd}{    x\PYZus{}hat = symbol spaced samples of the QAM waveform taken at the maximum}
+          \PY{l+s+sd}{            eye opening. Normally this is following the matched filter}
+          \PY{l+s+sd}{    }
+          \PY{l+s+sd}{    Mark Wickert April 2018}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{c+c1}{\PYZsh{} Inverse Gray code LUTs for 4, 16, 64, and 256 QAM}
+              \PY{c+c1}{\PYZsh{} which employs M = 2, 4, 6, and 8 bits per symbol}
+              \PY{n}{gray2bin1} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+              \PY{n}{gray2bin2} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}
+              \PY{n}{gray2bin3} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]} \PY{c+c1}{\PYZsh{} arange(8) }
+              \PY{n}{gray2bin4} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{13}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}
+              \PY{n}{x\PYZus{}m} \PY{o}{=} \PY{n}{sqrt}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+              \PY{k}{if} \PY{n}{M} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{:} \PY{n}{x\PYZus{}m} \PY{o}{=} \PY{l+m+mi}{1}
+              \PY{n}{N\PYZus{}symb} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x\PYZus{}hat}\PY{p}{)}
+              \PY{n}{N\PYZus{}word} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{log2}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} Scale input up by x\PYZus{}m}
+          \PY{c+c1}{\PYZsh{}     x\PYZus{}hat = x\PYZus{}hat*x\PYZus{}m}
+              \PY{n}{x\PYZus{}hat} \PY{o}{=} \PY{n}{x\PYZus{}hat}\PY{o}{/}\PY{p}{(}\PY{n}{std}\PY{p}{(}\PY{n}{x\PYZus{}hat}\PY{p}{)} \PY{o}{*} \PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{3}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{n}{M}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              
+              \PY{n}{k\PYZus{}hat\PYZus{}gray} \PY{o}{=} \PY{p}{(}\PY{n}{x\PYZus{}hat} \PY{o}{+} \PY{n}{x\PYZus{}m}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{l+m+mi}{1}\PY{n}{j}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}
+              \PY{c+c1}{\PYZsh{} Soft IQ symbol values are converted to hard symbol decisions}
+              \PY{n}{k\PYZus{}hat\PYZus{}grayI} \PY{o}{=} \PY{n}{int16}\PY{p}{(}\PY{n}{clip}\PY{p}{(}\PY{n}{rint}\PY{p}{(}\PY{n}{k\PYZus{}hat\PYZus{}gray}\PY{o}{.}\PY{n}{real}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{x\PYZus{}m}\PY{p}{)}\PY{p}{)}
+              \PY{n}{k\PYZus{}hat\PYZus{}grayQ} \PY{o}{=} \PY{n}{int16}\PY{p}{(}\PY{n}{clip}\PY{p}{(}\PY{n}{rint}\PY{p}{(}\PY{n}{k\PYZus{}hat\PYZus{}gray}\PY{o}{.}\PY{n}{imag}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{x\PYZus{}m}\PY{p}{)}\PY{p}{)}
+              \PY{n}{data\PYZus{}hat} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{o}{*}\PY{n}{N\PYZus{}symb}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n+nb}{int}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} Create the serial bit stream [Ibits,Qbits,Ibits,Qbits,...], msb to lsb}
+              \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N\PYZus{}symb}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{if} \PY{n}{M} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{:} \PY{c+c1}{\PYZsh{} special case for BPSK}
+                      \PY{n}{data\PYZus{}hat} \PY{o}{=} \PY{n}{k\PYZus{}hat\PYZus{}grayI}
+                  \PY{k}{elif} \PY{n}{M} \PY{o}{==} \PY{l+m+mi}{4}\PY{p}{:} \PY{c+c1}{\PYZsh{} total points of the square constellation}
+                      \PY{n}{data\PYZus{}hat}\PY{p}{[}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{p}{:}\PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{p}{]} \PYZbs{}
+                        \PY{o}{=} \PY{n}{hstack}\PY{p}{(}\PY{p}{(}\PY{n}{dc}\PY{o}{.}\PY{n}{tobin}\PY{p}{(}\PY{n}{gray2bin1}\PY{p}{[}\PY{n}{k\PYZus{}hat\PYZus{}grayI}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PY{n}{N\PYZus{}word}\PY{p}{)}\PY{p}{,}
+                                  \PY{n}{dc}\PY{o}{.}\PY{n}{tobin}\PY{p}{(}\PY{n}{gray2bin1}\PY{p}{[}\PY{n}{k\PYZus{}hat\PYZus{}grayQ}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PY{n}{N\PYZus{}word}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                  \PY{k}{elif} \PY{n}{M} \PY{o}{==} \PY{l+m+mi}{16}\PY{p}{:}
+                      \PY{n}{data\PYZus{}hat}\PY{p}{[}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{p}{:}\PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{p}{]} \PYZbs{}
+                        \PY{o}{=} \PY{n}{hstack}\PY{p}{(}\PY{p}{(}\PY{n}{dc}\PY{o}{.}\PY{n}{tobin}\PY{p}{(}\PY{n}{gray2bin2}\PY{p}{[}\PY{n}{k\PYZus{}hat\PYZus{}grayI}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PY{n}{N\PYZus{}word}\PY{p}{)}\PY{p}{,}
+                                  \PY{n}{dc}\PY{o}{.}\PY{n}{tobin}\PY{p}{(}\PY{n}{gray2bin2}\PY{p}{[}\PY{n}{k\PYZus{}hat\PYZus{}grayQ}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PY{n}{N\PYZus{}word}\PY{p}{)}\PY{p}{)}\PY{p}{)}            
+                  \PY{k}{elif} \PY{n}{M} \PY{o}{==} \PY{l+m+mi}{64}\PY{p}{:}
+                      \PY{n}{data\PYZus{}hat}\PY{p}{[}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{p}{:}\PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{p}{]} \PYZbs{}
+                        \PY{o}{=} \PY{n}{hstack}\PY{p}{(}\PY{p}{(}\PY{n}{dc}\PY{o}{.}\PY{n}{tobin}\PY{p}{(}\PY{n}{gray2bin3}\PY{p}{[}\PY{n}{k\PYZus{}hat\PYZus{}grayI}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PY{n}{N\PYZus{}word}\PY{p}{)}\PY{p}{,}
+                                  \PY{n}{dc}\PY{o}{.}\PY{n}{tobin}\PY{p}{(}\PY{n}{gray2bin3}\PY{p}{[}\PY{n}{k\PYZus{}hat\PYZus{}grayQ}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PY{n}{N\PYZus{}word}\PY{p}{)}\PY{p}{)}\PY{p}{)}            
+                  \PY{k}{elif} \PY{n}{M} \PY{o}{==} \PY{l+m+mi}{256}\PY{p}{:}
+                      \PY{n}{data\PYZus{}hat}\PY{p}{[}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{p}{:}\PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{N\PYZus{}word}\PY{p}{]} \PYZbs{}
+                        \PY{o}{=} \PY{n}{hstack}\PY{p}{(}\PY{p}{(}\PY{n}{dc}\PY{o}{.}\PY{n}{tobin}\PY{p}{(}\PY{n}{gray2bin4}\PY{p}{[}\PY{n}{k\PYZus{}hat\PYZus{}grayI}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PY{n}{N\PYZus{}word}\PY{p}{)}\PY{p}{,}
+                                  \PY{n}{dc}\PY{o}{.}\PY{n}{tobin}\PY{p}{(}\PY{n}{gray2bin4}\PY{p}{[}\PY{n}{k\PYZus{}hat\PYZus{}grayQ}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PY{n}{N\PYZus{}word}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M must be 2, 4, 16, 64, 256}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}  
+                      
+              \PY{k}{return} \PY{n}{data\PYZus{}hat}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{c+c1}{\PYZsh{}QAM\PYZus{}gray\PYZus{}encode\PYZus{}bb(N\PYZus{}symb,Ns,M=4,pulse=\PYZsq{}rect\PYZsq{},alpha=0.35,ext\PYZus{}data=None)}
+          \PY{n}{Ns} \PY{o}{=} \PY{l+m+mi}{16}
+          \PY{n}{M} \PY{o}{=} \PY{l+m+mi}{64}
+          \PY{n}{xbb1}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{QAM\PYZus{}gray\PYZus{}encode\PYZus{}bb}\PY{p}{(}\PY{l+m+mi}{10000}\PY{p}{,}\PY{n}{Ns}\PY{p}{,}\PY{n}{M}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{src}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{n} \PY{o}{=} \PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{xbb1}\PY{p}{)}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Translate baseband to fc1/fs = 4.0/16}
+          \PY{c+c1}{\PYZsh{} Relative to Ns = 16 samps/bit \PYZam{} Rb = 1 bps}
+          \PY{n}{xc1} \PY{o}{=} \PY{n}{xbb1}\PY{o}{*}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{n}{j}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{pi}\PY{o}{*}\PY{l+m+mf}{4.0}\PY{o}{/}\PY{n}{Ns}\PY{o}{*}\PY{n}{n}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}105}]:} \PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mf}{2.5}\PY{p}{)}\PY{p}{)}
+          \PY{n}{psd}\PY{p}{(}\PY{n}{xbb1}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{Ns}\PY{p}{)}\PY{p}{;}
+          \PY{n}{psd}\PY{p}{(}\PY{n}{xc1}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{Ns}\PY{p}{)}\PY{p}{;}
+          \PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{60}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Normalized Frequency \PYZdl{}f/R\PYZus{}s\PYZdl{} (note: \PYZdl{}M=64 }\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{Rightarrow R\PYZus{}b = 6R\PYZus{}s\PYZdl{})}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Baseband}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{At \PYZdl{}f\PYZus{}c = f\PYZus{}s/4\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Spectrum SRC Pulse Shaped 64\PYZhy{}QAM at \PYZdl{}f\PYZus{}}\PY{l+s+si}{\PYZob{}c1\PYZcb{}}\PY{l+s+s1}{ }\PY{l+s+se}{\PYZbs{}}
+          \PY{l+s+s1}{      = 4R\PYZus{}s\PYZdl{} and \PYZdl{}N\PYZus{}s = }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{Ns}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_55_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{64QAM Simulation Example}\label{qam-simulation-example}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}106}]:} \PY{n}{M} \PY{o}{=} \PY{l+m+mi}{64}
+          \PY{n}{Nsymb} \PY{o}{=} \PY{l+m+mi}{100000}
+          \PY{n}{Ns} \PY{o}{=} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{} With Ns=1 there is no need for the matched filter}
+          \PY{n}{EbN0\PYZus{}dB} \PY{o}{=} \PY{l+m+mi}{15}
+          \PY{n}{EsN0\PYZus{}dB} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{n}{log10}\PY{p}{(}\PY{n}{log2}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{p}{)}\PY{o}{+} \PY{n}{EbN0\PYZus{}dB}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eb/N0 = }\PY{l+s+si}{\PYZpc{}4.2f}\PY{l+s+s1}{ dB and Es/N0 = }\PY{l+s+si}{\PYZpc{}4.2f}\PY{l+s+s1}{ dB}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{EbN0\PYZus{}dB}\PY{p}{,}\PY{n}{EsN0\PYZus{}dB}\PY{p}{)}\PY{p}{)}
+          \PY{n}{xbb}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{QAM\PYZus{}gray\PYZus{}encode\PYZus{}bb}\PY{p}{(}\PY{n}{Nsymb}\PY{p}{,}\PY{n}{Ns}\PY{p}{,}\PY{n}{M}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{src}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{rbb} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{cpx\PYZus{}AWGN}\PY{p}{(}\PY{n}{xbb}\PY{p}{,}\PY{n}{EsN0\PYZus{}dB}\PY{p}{,}\PY{n}{Ns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Eb/N0 = 15.00 dB and Es/N0 = 22.78 dB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{n}{Npts} \PY{o}{=} \PY{l+m+mi}{2000}
+          \PY{n}{scat\PYZus{}data} \PY{o}{=} \PY{n}{rbb}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{scat\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{n}{Npts}\PY{p}{]}\PY{o}{.}\PY{n}{real}\PY{p}{,}\PY{n}{scat\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{n}{Npts}\PY{p}{]}\PY{o}{.}\PY{n}{imag}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{equal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IQ Scatter Plot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Quadrature}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{In\PYZhy{}Phase}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{grid}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_58_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{n}{data\PYZus{}hat} \PY{o}{=} \PY{n}{QAM\PYZus{}gray\PYZus{}decode}\PY{p}{(}\PY{n}{rbb}\PY{p}{,}\PY{n}{M}\PY{p}{)}
+          \PY{n}{Nbits}\PY{p}{,}\PY{n}{Nerrors} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{BPSK\PYZus{}BEP}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{data\PYZus{}hat}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BEP: Nbits = }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, Nerror = }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, Pe\PYZus{}est = }\PY{l+s+si}{\PYZpc{}1.3e}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PYZbs{}
+                \PY{p}{(}\PY{n}{Nbits}\PY{p}{,} \PY{n}{Nerrors}\PY{p}{,} \PY{n}{Nerrors}\PY{o}{/}\PY{n}{Nbits}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+kmax =  0, taumax = 0
+BEP: Nbits = 600000, Nerror = 459, Pe\_est = 7.650e-04
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}109}]:} \PY{k}{def} \PY{n+nf}{MQAM\PYZus{}BEP}\PY{p}{(}\PY{n}{EbN0}\PY{p}{,}\PY{n}{M}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{    Approximate symbol error probability of MQAM}
+          \PY{l+s+sd}{    }
+          \PY{l+s+sd}{    Mark Wickert April 2018}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{k}{if} \PY{n}{M} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{:}
+                  \PY{n}{PE} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{Q\PYZus{}fctn}\PY{p}{(}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{EbN0}\PY{p}{)}\PY{p}{)}
+              \PY{k}{elif} \PY{n}{M} \PY{o}{\PYZgt{}} \PY{l+m+mi}{2}\PY{p}{:}
+                  \PY{n}{EsN0} \PY{o}{=} \PY{n}{log2}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{o}{*}\PY{n}{EbN0} \PY{c+c1}{\PYZsh{} convert Eb/N0 to Es/N0}
+                  \PY{n}{PE} \PY{o}{=} \PY{l+m+mi}{4}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{sqrt}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{dc}\PY{o}{.}\PY{n}{Q\PYZus{}fctn}\PY{p}{(}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{3}\PY{o}{/}\PY{p}{(}\PY{n}{M}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{EsN0}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{log2}\PY{p}{(}\PY{n}{M}\PY{p}{)}
+              \PY{k}{return} \PY{n}{PE}
+\end{Verbatim}
+
+
+    \begin{itemize}
+\tightlist
+\item
+  Let's check the simulation results above against theory:
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} \PY{n}{P\PYZus{}e\PYZus{}thy} \PY{o}{=} \PY{n}{MQAM\PYZus{}BEP}\PY{p}{(}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{n}{EbN0\PYZus{}dB}\PY{o}{/}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{P\PYZus{}e\PYZus{}bit\PYZus{}thy = }\PY{l+s+si}{\PYZpc{}4.2e}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{P\PYZus{}e\PYZus{}thy}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+P\_e\_bit\_thy = 7.72e-04
+
+    \end{Verbatim}
+
+    \begin{itemize}
+\tightlist
+\item
+  Yes, the results are close
+\end{itemize}
+
+    \subsection{Waveform Level Simulation}\label{waveform-level-simulation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{n}{M} \PY{o}{=} \PY{l+m+mi}{64}
+          \PY{n}{Nsymb} \PY{o}{=} \PY{l+m+mi}{500}
+          \PY{n}{Ns} \PY{o}{=} \PY{l+m+mi}{10} \PY{c+c1}{\PYZsh{} With Ns=10 we have a waveform}
+          \PY{n}{EbN0\PYZus{}dB} \PY{o}{=} \PY{l+m+mi}{100} \PY{c+c1}{\PYZsh{} Make the addive noise negligible for now}
+          \PY{n}{EsN0\PYZus{}dB} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{n}{log10}\PY{p}{(}\PY{n}{log2}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{n}{EbN0\PYZus{}dB} \PY{c+c1}{\PYZsh{} Convert Eb/N0 to Es/N0}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eb/N0 = }\PY{l+s+si}{\PYZpc{}4.2f}\PY{l+s+s1}{ dB and Es/N0 = }\PY{l+s+si}{\PYZpc{}4.2f}\PY{l+s+s1}{ dB}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{EbN0\PYZus{}dB}\PY{p}{,}\PY{n}{EsN0\PYZus{}dB}\PY{p}{)}\PY{p}{)}
+          \PY{n}{xbb}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{QAM\PYZus{}gray\PYZus{}encode\PYZus{}bb}\PY{p}{(}\PY{n}{Nsymb}\PY{p}{,}\PY{n}{Ns}\PY{p}{,}\PY{n}{M}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Enter the comm channel by adding noise}
+          \PY{n}{rbb} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{cpx\PYZus{}AWGN}\PY{p}{(}\PY{n}{xbb}\PY{p}{,}\PY{n}{EsN0\PYZus{}dB}\PY{p}{,}\PY{n}{Ns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Eb/N0 = 100.00 dB and Es/N0 = 107.78 dB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{n}{Nplot} \PY{o}{=} \PY{l+m+mi}{100}
+          \PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{211}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{rbb}\PY{p}{[}\PY{p}{:}\PY{n}{Nplot}\PY{o}{*}\PY{n}{Ns}\PY{p}{]}\PY{o}{.}\PY{n}{real}\PY{o}{*}\PY{l+m+mi}{7}\PY{p}{)} \PY{c+c1}{\PYZsh{} Remove the unity amplitude scaling to see the +/\PYZhy{}1, +/\PYZhy{}3, ...}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amplitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sample Index \PYZdl{}n\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scaled Inphase or \PYZdl{}I[n]\PYZdl{} Signal Transmitted at Baseband}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{212}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{rbb}\PY{p}{[}\PY{p}{:}\PY{n}{Nplot}\PY{o}{*}\PY{n}{Ns}\PY{p}{]}\PY{o}{.}\PY{n}{imag}\PY{o}{*}\PY{l+m+mi}{7}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amplitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sample Index \PYZdl{}n\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scaled Quadrature or \PYZdl{}Q[n]\PYZdl{} Signal Transmitted at Baseband}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_66_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Including the Receiver Matched Filter to Mitigate
+Noise}\label{including-the-receiver-matched-filter-to-mitigate-noise}
+
+Take the received waveform into the receiver by first passing the signal
+through the \emph{matched filter} \texttt{b}, which is conveniently
+returned by \texttt{QAM\_gray\_encode\_bb}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}113}]:} \PY{c+c1}{\PYZsh{} Enter the receiver by passing through the matched filter}
+          \PY{c+c1}{\PYZsh{} Note carrier frequency ofset and phase tracking would likely be needed, but here}
+          \PY{c+c1}{\PYZsh{} both are zero to keep things simple.}
+          \PY{n}{y} \PY{o}{=} \PY{n}{signal}\PY{o}{.}\PY{n}{lfilter}\PY{p}{(}\PY{n}{b}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{rbb}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Choosing the Proper Once Per Symbol Sampling
+Instant}\label{choosing-the-proper-once-per-symbol-sampling-instant}
+
+The symbol synchronization operation requires sampling the matched
+filter output onnce per symbol such that the maximum SNR is achieved,
+and hence the minimum BEP is obtained. Here we use
+\texttt{ss.downsample(y,Ns,phase)} to do this. The optional third
+argument \texttt{phase}, chosen from {[}0,Ns-1{]}, which is exactly what
+we need. In practice a PLL symbol synchronizer performs this
+automatically.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}114}]:} \PY{c+c1}{\PYZsh{} Symbol synchronize manually}
+          \PY{n}{z} \PY{o}{=} \PY{n}{ss}\PY{o}{.}\PY{n}{downsample}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{n}{Ns}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}
+          \PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{z}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{Nplot}\PY{p}{]}\PY{o}{.}\PY{n}{real}\PY{o}{*}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} Again scale to see that the sample values are aligning }
+                                        \PY{c+c1}{\PYZsh{} with the expected unscaled tx values.}
+          \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scaled Optimal Symbol Spaced Samples}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Inphase Symbol Samples}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sample Index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{grid}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_70_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We can use the \texttt{eyeplot} function to get a better handle on the
+options.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}115}]:} \PY{n}{dc}\PY{o}{.}\PY{n}{eye\PYZus{}plot}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{real}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{Ns}\PY{p}{,}\PY{l+m+mi}{12}\PY{o}{*}\PY{n}{Ns}\PY{p}{)} \PY{c+c1}{\PYZsh{} The 12*Ns removed the pulse shaping filter transients}
+          \PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.2}\PY{p}{,}\PY{l+m+mf}{1.2}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eyeplot of Inphase with Rect Pulse Shaping}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}115}]:} Text(0.5,1,'Eyeplot of Inphase with Rect Pulse Shaping')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_72_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Quick Look with SRC Pulse
+Shaping}\label{quick-look-with-src-pulse-shaping}
+
+Change from the easy to visualize rectangular pulse shape to the
+square-root raised cosine (\texttt{src}) shape, which has a very compact
+spectrum. Here in particular the optimum sampling instant shifts from
+\texttt{phase\ =\ 9} to \texttt{phase\ =\ mod(10,Ns)\ =\ 0}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}116}]:} \PY{n}{M} \PY{o}{=} \PY{l+m+mi}{64}
+          \PY{n}{Nsymb} \PY{o}{=} \PY{l+m+mi}{100000}
+          \PY{n}{Ns} \PY{o}{=} \PY{l+m+mi}{40} \PY{c+c1}{\PYZsh{} With Ns=10 we have a waveform}
+          \PY{n}{EbN0\PYZus{}dB} \PY{o}{=} \PY{l+m+mi}{50} \PY{c+c1}{\PYZsh{} Make the addive noise negligible for now}
+          \PY{n}{EsN0\PYZus{}dB} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{n}{log10}\PY{p}{(}\PY{n}{log2}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{n}{EbN0\PYZus{}dB}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eb/N0 = }\PY{l+s+si}{\PYZpc{}4.2f}\PY{l+s+s1}{ dB and Es/N0 = }\PY{l+s+si}{\PYZpc{}4.2f}\PY{l+s+s1}{ dB}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{EbN0\PYZus{}dB}\PY{p}{,}\PY{n}{EsN0\PYZus{}dB}\PY{p}{)}\PY{p}{)}
+          \PY{n}{xbb}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{QAM\PYZus{}gray\PYZus{}encode\PYZus{}bb}\PY{p}{(}\PY{n}{Nsymb}\PY{p}{,}\PY{n}{Ns}\PY{p}{,}\PY{n}{M}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{src}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Enter the comm channel by adding noise}
+          \PY{n}{rbb} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{cpx\PYZus{}AWGN}\PY{p}{(}\PY{n}{xbb}\PY{p}{,}\PY{n}{EsN0\PYZus{}dB}\PY{p}{,}\PY{n}{Ns}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Enter the receiver by passing through the matched filter}
+          \PY{c+c1}{\PYZsh{} Note carrier frequency offset and phase tracking would likely be needed, but here}
+          \PY{c+c1}{\PYZsh{} both are zero to keep things simple.}
+          \PY{n}{y} \PY{o}{=} \PY{n}{signal}\PY{o}{.}\PY{n}{lfilter}\PY{p}{(}\PY{n}{b}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{rbb}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Timeout for an eye plot to check timing}
+          \PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+          \PY{n}{dc}\PY{o}{.}\PY{n}{eye\PYZus{}plot}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10000}\PY{p}{]}\PY{o}{.}\PY{n}{real}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{Ns}\PY{p}{,}\PY{l+m+mi}{12}\PY{o}{*}\PY{n}{Ns}\PY{p}{)} \PY{c+c1}{\PYZsh{} 12*Ns removes the filter transients}
+          \PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.2}\PY{p}{,}\PY{l+m+mf}{1.2}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.2}\PY{p}{,}\PY{l+m+mf}{1.2}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eyeplot of Inphase with SRC Pulse Shaping}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Symbol synchronize manually}
+          \PY{n}{z} \PY{o}{=} \PY{n}{ss}\PY{o}{.}\PY{n}{downsample}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{n}{Ns}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Scale so the peak is +/\PYZhy{} (sqrt(M) \PYZhy{} 1).}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{z}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{Nplot}\PY{p}{]}\PY{o}{.}\PY{n}{real}\PY{o}{/}\PY{p}{(}\PY{n}{std}\PY{p}{(}\PY{n}{z}\PY{p}{)} \PY{o}{*} \PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{3}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{n}{M}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+          \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scaled Optimal Symbol Spaced Samples}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Inphase Symbol Samples}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sample Index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{)}
+          \PY{n}{grid}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+          \PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Eb/N0 = 50.00 dB and Es/N0 = 57.78 dB
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<Figure size 432x144 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_74_2.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_74_3.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{BEP Testing with
+Waveforms}\label{bep-testing-with-waveforms}
+
+Here we feed the reference bit stream output, \texttt{data}, from
+\texttt{QAM\_gray\_encode\_bb} along with the decoded bit stream
+\texttt{QAM\_gray\_decode} into \texttt{BPSK\_BEP}. For the SRC pulse
+shaped waveform the net filter delay from the encoder and the matched
+filter is 12 symbols. A cross-correlation is performed inside
+\texttt{BPSK\_BEP} to align the two input bit streams for error
+detection. This of course assumes the are not too many errors.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}117}]:} \PY{n}{data\PYZus{}hat} \PY{o}{=} \PY{n}{QAM\PYZus{}gray\PYZus{}decode}\PY{p}{(}\PY{n}{z}\PY{p}{,}\PY{n}{M}\PY{p}{)}
+          \PY{n}{Nbits}\PY{p}{,}\PY{n}{Nerrors} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{BPSK\PYZus{}BEP}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{data\PYZus{}hat}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BEP: Nbits = }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, Nerror = }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, Pe\PYZus{}est = }\PY{l+s+si}{\PYZpc{}1.3e}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PYZbs{}
+                \PY{p}{(}\PY{n}{Nbits}\PY{p}{,} \PY{n}{Nerrors}\PY{p}{,} \PY{n}{Nerrors}\PY{o}{/}\PY{n}{Nbits}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+kmax =  0, taumax = 72
+BEP: Nbits = 599928, Nerror = 0, Pe\_est = 0.000e+00
+
+    \end{Verbatim}
+
+    Zero bit errors at high SNR (\(E_b/N_0\)) is the expected result.
+
+    \subsection{End-to-End Audio Test}\label{end-to-end-audio-test}
+
+The objective is to send audio through the 64QAM link using the PCM
+encoder/decoder pair. Some timing adjustment is needed to:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Make sure the filtering transient is properly removed at the start of
+  the received serial bit stream
+\item
+  The number of bits processed bby \texttt{PCM\_decode} is an integer
+  multiple of the PCM word length in bits
+\end{enumerate}
+
+We will also see how \texttt{QAM\_gray\_encode\_bb} can work with an
+externally supplied bit stream, as opposed to its internally generated
+random bit stream.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}118}]:} \PY{n}{Nstart} \PY{o}{=} \PY{l+m+mi}{20000}
+          \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{60000}\PY{p}{;} \PY{c+c1}{\PYZsh{} number of speech samples to process}
+          \PY{n}{fs}\PY{p}{,}\PY{n}{m1} \PY{o}{=} \PY{n}{ss}\PY{o}{.}\PY{n}{from\PYZus{}wav}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OSR\PYZus{}uk\PYZus{}000\PYZus{}0050\PYZus{}8k.wav}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{m1} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{m1}\PY{p}{[}\PY{n}{Nstart}\PY{p}{:}\PY{n}{Nstart}\PY{o}{+}\PY{n}{N}\PY{p}{]}
+          \PY{n}{N\PYZus{}PCM} \PY{o}{=} \PY{l+m+mi}{8} \PY{c+c1}{\PYZsh{} PCM encode with 8 bits per audio sample}
+          \PY{n}{data\PYZus{}ext} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{PCM\PYZus{}encode}\PY{p}{(}\PY{n}{m1}\PY{p}{,}\PY{n}{N\PYZus{}PCM}\PY{p}{)} \PY{c+c1}{\PYZsh{} Obtain external data bits for QAM\PYZus{}gray\PYZus{}encode}
+          \PY{n}{M} \PY{o}{=} \PY{l+m+mi}{64} \PY{c+c1}{\PYZsh{} QAM modulate using a 64 point constellation (8x8 points)}
+          \PY{n}{Ns} \PY{o}{=} \PY{l+m+mi}{10} \PY{c+c1}{\PYZsh{} With Ns=10 we have a waveform}
+          \PY{n}{EbN0\PYZus{}dB} \PY{o}{=} \PY{l+m+mi}{100} \PY{c+c1}{\PYZsh{} Make the addive noise negligible for now}
+          \PY{n}{EsN0\PYZus{}dB} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{n}{log10}\PY{p}{(}\PY{n}{log2}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{n}{EbN0\PYZus{}dB}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eb/N0 = }\PY{l+s+si}{\PYZpc{}4.2f}\PY{l+s+s1}{ dB and Es/N0 = }\PY{l+s+si}{\PYZpc{}4.2f}\PY{l+s+s1}{ dB}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{EbN0\PYZus{}dB}\PY{p}{,}\PY{n}{EsN0\PYZus{}dB}\PY{p}{)}\PY{p}{)}
+          \PY{n}{xbb}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{data\PYZus{}ext\PYZus{}trim} \PY{o}{=} \PY{n}{QAM\PYZus{}gray\PYZus{}encode\PYZus{}bb}\PY{p}{(}\PY{k+kc}{None}\PY{p}{,}\PY{n}{Ns}\PY{p}{,}\PY{n}{M}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{src}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ext\PYZus{}data}\PY{o}{=}\PY{n}{data\PYZus{}ext}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Enter the comm channel by adding noise}
+          \PY{n}{rbb} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{cpx\PYZus{}AWGN}\PY{p}{(}\PY{n}{xbb}\PY{p}{,}\PY{n}{EsN0\PYZus{}dB}\PY{p}{,}\PY{n}{Ns}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Enter the receiver by passing through the matched filter}
+          \PY{c+c1}{\PYZsh{} Note carrier frequency offset and phase tracking would likely be needed, but here}
+          \PY{c+c1}{\PYZsh{} both are zero to keep things simple.}
+          \PY{n}{y} \PY{o}{=} \PY{n}{signal}\PY{o}{.}\PY{n}{lfilter}\PY{p}{(}\PY{n}{b}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{rbb}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Symbol synchronize manually}
+          \PY{n}{z} \PY{o}{=} \PY{n}{ss}\PY{o}{.}\PY{n}{downsample}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{n}{Ns}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{data\PYZus{}ext\PYZus{}hat} \PY{o}{=} \PY{n}{QAM\PYZus{}gray\PYZus{}decode}\PY{p}{(}\PY{n}{z}\PY{p}{,}\PY{n}{M}\PY{p}{)}
+          \PY{n}{Nbits}\PY{p}{,}\PY{n}{Nerrors} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{BPSK\PYZus{}BEP}\PY{p}{(}\PY{n}{data\PYZus{}ext\PYZus{}trim}\PY{p}{,}\PY{n}{data\PYZus{}ext\PYZus{}hat}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BEP: Nbits = }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, Nerror = }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, Pe\PYZus{}est = }\PY{l+s+si}{\PYZpc{}1.3e}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PYZbs{}
+                \PY{p}{(}\PY{n}{Nbits}\PY{p}{,} \PY{n}{Nerrors}\PY{p}{,} \PY{n}{Nerrors}\PY{o}{/}\PY{n}{Nbits}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Eb/N0 = 100.00 dB and Es/N0 = 107.78 dB
+kmax =  0, taumax = 72
+BEP: Nbits = 479928, Nerror = 0, Pe\_est = 0.000e+00
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}119}]:} \PY{n}{plot}\PY{p}{(}\PY{n}{z}\PY{p}{[}\PY{l+m+mi}{2000}\PY{p}{:}\PY{l+m+mi}{2100}\PY{p}{]}\PY{o}{.}\PY{n}{real}\PY{o}{*}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scaled Optimal Symbol Spaced Samples}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Inphase Symbol Samples}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sample Index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{grid}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_80_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we get ready to decode the recovered/demodulated bit stream
+\texttt{data\_ext\_hat} we have to bear in mind the signal imposed by
+the two SRC pulse shaping filters. Why? Bits that enter the PCM decoder
+must be properly framed, that is \texttt{N\_PCM} is the word length, in
+this case 8 bits, so the word boundaries have to align for the decoder
+the do its job.
+
+A clue that delay has occured is to look at the \texttt{taumax} output
+from the BEP functioin. In the above example we see
+\texttt{taumax\ =\ 72}, which says that the cross-correlation detection
+in \texttt{BPSK\_BEP} found achieved its maximum by lagging the
+reference bits from the transmitter (\texttt{data\_ext\_trim}) by 72
+bits. The default pulse shaping filter, \texttt{b}, introduces a delay
+of 6 symbols as does the matched filter in the receiver. Hence a total
+delay of 12 symbols is introduced. For \(M=64\) QAM we transmit 6 bits
+per symbol. The total delay in bits is thus \(6\times 12 = 72\).
+
+The concern is this delay an integer multiple of \(N_\text{PCM} = 8\)?
+Yes, as \(72/8 = 9\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}120}]:} \PY{l+m+mi}{72}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{8}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}120}]:} 9
+\end{Verbatim}
+            
+    Great, we do not have to do any bit trimming at the front of
+\texttt{data\_ext\_hat}. We do have to make sure that the length of
+\texttt{data\_ext\_hat} is an integer multiple of \texttt{N\_PCM}. We
+can automate this as shown below, and while we are at it trim some of
+the spurious bits being pushed out of the \emph{bit pipe} due to the
+delay.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}121}]:} \PY{n}{N\PYZus{}offset} \PY{o}{=} \PY{l+m+mi}{8}\PY{o}{*}\PY{l+m+mi}{9}
+          \PY{n}{data\PYZus{}ext\PYZus{}hat\PYZus{}trim} \PY{o}{=} \PY{n}{data\PYZus{}ext\PYZus{}hat}\PY{p}{[}\PY{n}{N\PYZus{}offset}\PY{p}{:}\PYZbs{}
+                                           \PY{n}{N\PYZus{}offset}\PY{o}{+}\PY{n}{N\PYZus{}PCM}\PY{o}{*}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data\PYZus{}ext\PYZus{}hat}\PY{p}{)}\PY{o}{/}\PY{n}{N\PYZus{}PCM}\PY{p}{)}\PY{p}{]}
+          \PY{n}{m1\PYZus{}hat} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{PCM\PYZus{}decode}\PY{p}{(}\PY{n}{data\PYZus{}ext\PYZus{}hat\PYZus{}trim}\PY{p}{,}\PY{n}{N\PYZus{}PCM}\PY{p}{)}
+          \PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{211}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{m1\PYZus{}hat}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Speech Amplitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sample Index at 8 ksps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A Portion of OSR\PYZus{}uk\PYZus{}000\PYZus{}0050\PYZus{}8k.wav}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{N\PYZus{}offset} \PY{o}{=} \PY{l+m+mi}{8}\PY{o}{*}\PY{l+m+mi}{9}
+          \PY{c+c1}{\PYZsh{} Improperly trim so that the word bondary is shifted by 5 bits}
+          \PY{n}{m1\PYZus{}hat\PYZus{}miss} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{PCM\PYZus{}decode}\PY{p}{(}\PY{n}{data\PYZus{}ext\PYZus{}hat\PYZus{}trim}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{n}{N\PYZus{}PCM}\PY{p}{)}
+          \PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{212}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{m1\PYZus{}hat\PYZus{}miss}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Speech Amplitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sample Index at 8 ksps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A Portion of OSR\PYZus{}uk\PYZus{}000\PYZus{}0050\PYZus{}8k.wav with Align Error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_84_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}122}]:} \PY{n}{ss}\PY{o}{.}\PY{n}{to\PYZus{}wav}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{QAM\PYZus{}PCM.wav}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{8000}\PY{p}{,}\PY{n}{m1\PYZus{}hat}\PY{p}{)}
+          \PY{n}{Audio}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{QAM\PYZus{}PCM.wav}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}122}]:} <IPython.lib.display.Audio object>
+\end{Verbatim}
+            
+    Compare input and output bit streams by trimming off the first 72 bits
+using the \texttt{strips()} plot function found in \texttt{digitalcom}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}123}]:} \PY{n}{dc}\PY{o}{.}\PY{n}{strips}\PY{p}{(}\PY{n}{data\PYZus{}ext}\PY{p}{[}\PY{l+m+mi}{1000}\PY{p}{:}\PY{l+m+mi}{1000}\PY{o}{+}\PY{l+m+mi}{800}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{9}\PY{o}{*}\PY{l+m+mi}{8}\PY{p}{,}\PY{n}{fig\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} 9 N\PYZus{}PCM = 8\PYZhy{}bit frames per strip}
+          \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The Transmitted Bit Stream 1000 Bits into the Stream}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}123}]:} Text(0.5,1,'The Transmitted Bit Stream 1000 Bits into the Stream')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_87_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}124}]:} \PY{n}{advance} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{n}{dc}\PY{o}{.}\PY{n}{strips}\PY{p}{(}\PY{n}{data\PYZus{}ext\PYZus{}hat}\PY{p}{[}\PY{l+m+mi}{1000}\PY{o}{+}\PY{n}{advance}\PY{p}{:}\PY{l+m+mi}{1000}\PY{o}{+}\PY{l+m+mi}{800}\PY{o}{+}\PY{n}{advance}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{9}\PY{o}{*}\PY{l+m+mi}{8}\PY{p}{,}\PY{n}{fig\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The Received Bit Stream 1000 Bits into the Stream}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}124}]:} Text(0.5,1,'The Received Bit Stream 1000 Bits into the Stream')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_88_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The above confirms what was suspected from the start. We see the second
+strip of 72 bits in the second plot matches the first strip of 72 bits
+from the first plot. The spurious seen in the first row of the second
+plot consist of all but 4 zeros. Recall a total of 12 64-QAM Symbols is
+equivalent to 72 bits, and this is also a multiple of \texttt{N\_PCM},
+so all is well on the playback of the audio too.
+
+    \section{Part 2 Tasks}\label{part-2-tasks}
+
+    \subsection{Task 4a}\label{task-4a}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}125}]:} \PY{c+c1}{\PYZsh{} list of M\PYZsq{}s}
+          \PY{n}{M\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{256}\PY{p}{]}
+          
+          \PY{n}{Nsymb} \PY{o}{=} \PY{l+m+mi}{100000}
+          \PY{n}{Ns} \PY{o}{=} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{} With Ns=1 there is no need for the matched filter}
+          \PY{n}{EbN0\PYZus{}dB} \PY{o}{=} \PY{l+m+mi}{20}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{M}\PY{p}{,} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{M\PYZus{}list}\PY{p}{,} \PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{321}\PY{p}{,}\PY{l+m+mi}{326}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{EsN0\PYZus{}dB} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{n}{log10}\PY{p}{(}\PY{n}{log2}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{p}{)}\PY{o}{+} \PY{n}{EbN0\PYZus{}dB}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M = }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{; Eb/N0 = }\PY{l+s+si}{\PYZpc{}4.2f}\PY{l+s+s1}{ dB; Es/N0 = }\PY{l+s+si}{\PYZpc{}4.2f}\PY{l+s+s1}{ dB}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{M}\PY{p}{,}\PY{n}{EbN0\PYZus{}dB}\PY{p}{,}\PY{n}{EsN0\PYZus{}dB}\PY{p}{)}\PY{p}{)}
+              \PY{n}{xbb}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{QAM\PYZus{}gray\PYZus{}encode\PYZus{}bb}\PY{p}{(}\PY{n}{Nsymb}\PY{p}{,}\PY{n}{Ns}\PY{p}{,}\PY{n}{M}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{src}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} Enter the comm channel by adding noise}
+              \PY{n}{rbb} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{cpx\PYZus{}AWGN}\PY{p}{(}\PY{n}{xbb}\PY{p}{,}\PY{n}{EsN0\PYZus{}dB}\PY{p}{,}\PY{n}{Ns}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} Plot the 64\PYZhy{}QAM constellation points as a scatter plot}
+              \PY{n}{Npts} \PY{o}{=} \PY{l+m+mi}{2000}
+              \PY{n}{scat\PYZus{}data} \PY{o}{=} \PY{n}{rbb}
+              \PY{n}{subplot}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+              \PY{n}{plot}\PY{p}{(}\PY{n}{scat\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{n}{Npts}\PY{p}{]}\PY{o}{.}\PY{n}{real}\PY{p}{,}\PY{n}{scat\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{n}{Npts}\PY{p}{]}\PY{o}{.}\PY{n}{imag}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{equal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{}title(\PYZsq{}IQ Scatter Plot\PYZsq{})}
+              \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Quadrature}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{In\PYZhy{}Phase}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{grid}
+          
+              \PY{c+c1}{\PYZsh{} Decode the QAM symbols back to a serial bit stream}
+              \PY{n}{data\PYZus{}hat} \PY{o}{=} \PY{n}{QAM\PYZus{}gray\PYZus{}decode}\PY{p}{(}\PY{n}{rbb}\PY{p}{,}\PY{n}{M}\PY{p}{)}
+              \PY{n}{Nbits}\PY{p}{,}\PY{n}{Nerrors} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{BPSK\PYZus{}BEP}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{data\PYZus{}hat}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BEP: Nbits = }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, Nerror = }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, Pe\PYZus{}est = }\PY{l+s+si}{\PYZpc{}1.3e}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PYZbs{}
+               \PY{p}{(}\PY{n}{Nbits}\PY{p}{,} \PY{n}{Nerrors}\PY{p}{,} \PY{n}{Nerrors}\PY{o}{/}\PY{n}{Nbits}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+M = 2; Eb/N0 = 20.00 dB; Es/N0 = 20.00 dB
+kmax =  0, taumax = 0
+BEP: Nbits = 100000, Nerror = 0, Pe\_est = 0.000e+00
+
+M = 4; Eb/N0 = 20.00 dB; Es/N0 = 23.01 dB
+kmax =  0, taumax = 0
+BEP: Nbits = 200000, Nerror = 0, Pe\_est = 0.000e+00
+
+M = 16; Eb/N0 = 20.00 dB; Es/N0 = 26.02 dB
+kmax =  0, taumax = 0
+BEP: Nbits = 400000, Nerror = 0, Pe\_est = 0.000e+00
+
+M = 64; Eb/N0 = 20.00 dB; Es/N0 = 27.78 dB
+kmax =  0, taumax = 0
+BEP: Nbits = 600000, Nerror = 0, Pe\_est = 0.000e+00
+
+M = 256; Eb/N0 = 20.00 dB; Es/N0 = 29.03 dB
+kmax =  0, taumax = 0
+BEP: Nbits = 800000, Nerror = 419, Pe\_est = 5.238e-04
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_92_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Note the noise variance is not constant as number of bits per symbol
+changes according to . This does however keep the cost in transmitter
+energy required to send one bit constant across all M values. Does it
+make sense that as M increases the cost in to send a bit goes up in
+order to maintain the same BEP? What do you get in return for this in
+increased cost?
+
+    Answer: As M increases, we are effectively cramming more information (ie
+distinct symbol locations) into the same "space" within the I/Q plot.
+Thus, we pay more in the form of \(E_b/N_0\) to maintain the distict
+symbol locations as M increases. The upside is we have more
+constellation points to work with, meaning there is a greater resolution
+with which to send information (higher bits per symbol). This allows
+greater accuracy when transmitting detailed data.
+
+    \subsection{Task 4b}\label{task-4b}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}126}]:} \PY{c+c1}{\PYZsh{} Sample BEP Plot}
+          \PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+          \PY{n}{EbN0\PYZus{}dB\PYZus{}plot} \PY{o}{=} \PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{25.6}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{)}
+          \PY{n}{legList} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{linestyles} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{M}\PY{p}{,} \PY{n}{l} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{M\PYZus{}list}\PY{p}{,} \PY{n}{linestyles}\PY{p}{)}\PY{p}{:}
+              \PY{n}{Pe\PYZus{}thy\PYZus{}plotM2} \PY{o}{=} \PY{n}{MQAM\PYZus{}BEP}\PY{p}{(}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{n}{EbN0\PYZus{}dB\PYZus{}plot}\PY{o}{/}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,}\PY{n}{M}\PY{p}{)}
+              \PY{n}{semilogy}\PY{p}{(}\PY{n}{EbN0\PYZus{}dB\PYZus{}plot}\PY{p}{,}\PY{n}{Pe\PYZus{}thy\PYZus{}plotM2}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{n}{l}\PY{p}{)}
+              \PY{n}{legList}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M = }\PY{l+s+si}{\PYZob{}M\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Probability of Bit Error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Received \PYZdl{}E\PYZus{}b/N\PYZus{}0\PYZdl{} (dB)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BPSK BEP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{legend}\PY{p}{(}\PY{n}{legList}\PY{p}{,}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{grid}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_96_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The effect of a greater number of unique symbols (or unique points on
+the consetellation) is clearly seen in the plot above. As discussed
+previously, higher M allows more precision when transmitting
+information, but with a higher chance of error. This is reinforced by
+the BEP waterfall curves. Although all M levels have similar bit error
+probabilities for lower bit energy to received noise power ratios
+(\(E_b/N_0\)), as this ratio increases the BEP of the lower M values
+drops much sooner than that of the higher M values.
+
+    \subsection{Task 4c}\label{task-4c}
+
+Using your limited understanding of digital comm try to explain why the
+a and b BEP curves overlap. You may want to refer the plots of 4a to
+help in your explanation.
+
+Write your explanation here.
+
+Based on the I/Q plots, the spacing between the constellation points for
+\(M = 2,4\) are identical (ie 2). Thus the their BEPs are equal for all
+Received \(E_b/N_0\).
+
+    \subsection{Task 5a}\label{task-5a}
+
+    \subsubsection{Add Some Gaussian Noise}\label{add-some-gaussian-noise}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}127}]:} \PY{n}{M} \PY{o}{=} \PY{l+m+mi}{64}\PY{p}{;}
+          \PY{n}{EbN0\PYZus{}dB\PYZus{}plot} \PY{o}{=} \PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{)}
+          \PY{n}{EbN0\PYZus{}dB} \PY{o}{=} \PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{18}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          
+          
+          \PY{n}{Nsymb} \PY{o}{=} \PY{l+m+mi}{300000}
+          \PY{n}{Ns} \PY{o}{=} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{} With Ns=1 there is no need for the matched filter}
+          \PY{k}{def} \PY{n+nf}{task5a}\PY{p}{(}\PY{n}{M}\PY{p}{,}\PY{n}{EbN0\PYZus{}dB\PYZus{}plot}\PY{p}{,}\PY{n}{EbN0\PYZus{}dB}\PY{p}{,}\PY{n}{Nsymb}\PY{p}{,}\PY{n}{Ns}\PY{p}{)}\PY{p}{:}
+              \PY{n}{EsN0\PYZus{}dB} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{n}{log10}\PY{p}{(}\PY{n}{log2}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{p}{)}\PY{o}{+} \PY{n}{EbN0\PYZus{}dB}
+              \PY{n}{simBEP} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{size}\PY{p}{(}\PY{n}{EbN0\PYZus{}dB}\PY{p}{)}\PY{p}{)}\PY{p}{)} 
+          
+              \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{size}\PY{p}{(}\PY{n}{EbN0\PYZus{}dB}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{xbb}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{QAM\PYZus{}gray\PYZus{}encode\PYZus{}bb}\PY{p}{(}\PY{n}{Nsymb}\PY{p}{,}\PY{n}{Ns}\PY{p}{,}\PY{n}{M}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{src}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{c+c1}{\PYZsh{} Enter the comm channel by adding noise}
+                  \PY{n}{rbb} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{cpx\PYZus{}AWGN}\PY{p}{(}\PY{n}{xbb}\PY{p}{,}\PY{n}{EsN0\PYZus{}dB}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{,}\PY{n}{Ns}\PY{p}{)}
+                  \PY{c+c1}{\PYZsh{} Decode the QAM symbols back to a serial bit stream}
+                  \PY{n}{data\PYZus{}hat} \PY{o}{=} \PY{n}{QAM\PYZus{}gray\PYZus{}decode}\PY{p}{(}\PY{n}{rbb}\PY{p}{,}\PY{n}{M}\PY{p}{)}
+                  \PY{n}{Nbits}\PY{p}{,}\PY{n}{Nerrors} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{BPSK\PYZus{}BEP}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{data\PYZus{}hat}\PY{p}{)}
+                  \PY{n}{simBEP}\PY{p}{[}\PY{n}{ii}\PY{p}{]} \PY{o}{=} \PY{n}{Nerrors}\PY{o}{/}\PY{n}{Nbits}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BEP: Nbits = }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, Nerror = }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, Pe\PYZus{}est = }\PY{l+s+si}{\PYZpc{}1.3e}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PYZbs{}
+                   \PY{p}{(}\PY{n}{Nbits}\PY{p}{,} \PY{n}{Nerrors}\PY{p}{,} \PY{n}{Nerrors}\PY{o}{/}\PY{n}{Nbits}\PY{p}{)}\PY{p}{)}
+          
+          
+              \PY{c+c1}{\PYZsh{} Sample BEP Plot}
+              \PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+              \PY{n}{legList} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+          
+          
+          
+              \PY{c+c1}{\PYZsh{} Plot Theoretical}
+              \PY{n}{Pe\PYZus{}thy\PYZus{}plotM2} \PY{o}{=} \PY{n}{MQAM\PYZus{}BEP}\PY{p}{(}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{n}{EbN0\PYZus{}dB\PYZus{}plot}\PY{o}{/}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,}\PY{n}{M}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{semilogy}\PY{p}{(}\PY{n}{EbN0\PYZus{}dB\PYZus{}plot}\PY{p}{,}\PY{n}{Pe\PYZus{}thy\PYZus{}plotM2}\PY{p}{)}
+              \PY{n}{scatter}
+              \PY{n}{legList}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M = }\PY{l+s+si}{\PYZob{}M\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+              \PY{c+c1}{\PYZsh{} Plot simulated}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{EbN0\PYZus{}dB}\PY{p}{,}\PY{n}{simBEP}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  
+              \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Probability of Bit Error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Received \PYZdl{}E\PYZus{}b/N\PYZus{}0\PYZdl{} (dB)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BPSK BEP M=64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+              \PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Theoretical Curve}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Simulated Points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+              \PY{n}{grid}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+          
+          \PY{n}{task5a}\PY{p}{(}\PY{n}{M}\PY{p}{,}\PY{n}{EbN0\PYZus{}dB\PYZus{}plot}\PY{p}{,}\PY{n}{EbN0\PYZus{}dB}\PY{p}{,}\PY{n}{Nsymb}\PY{p}{,}\PY{n}{Ns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+kmax =  0, taumax = 0
+BEP: Nbits = 1800000, Nerror = 1475, Pe\_est = 8.194e-04
+kmax =  0, taumax = 0
+BEP: Nbits = 1800000, Nerror = 392, Pe\_est = 2.178e-04
+kmax =  0, taumax = 0
+BEP: Nbits = 1800000, Nerror = 73, Pe\_est = 4.056e-05
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_101_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Task 5B}\label{task-5b}
+
+    \subsubsection{Add Some Phase Noise}\label{add-some-phase-noise}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}128}]:} \PY{n}{M} \PY{o}{=} \PY{l+m+mi}{64}\PY{p}{;}
+          \PY{n}{EbN0\PYZus{}dB\PYZus{}plot} \PY{o}{=} \PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{)}
+          \PY{n}{EbN0\PYZus{}dB} \PY{o}{=} \PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{18}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{n}{Nsymb} \PY{o}{=} \PY{l+m+mi}{300000}
+          \PY{n}{Ns} \PY{o}{=} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{} With Ns=1 there is no need for the matched filter}
+          
+          \PY{k}{def} \PY{n+nf}{task5b}\PY{p}{(}\PY{n}{M}\PY{p}{,} \PY{n}{EbN0\PYZus{}dB\PYZus{}plot}\PY{p}{,} \PY{n}{EbN0\PYZus{}dB}\PY{p}{,} \PY{n}{Nsymb}\PY{p}{,} \PY{n}{Ns}\PY{p}{)}\PY{p}{:}
+              \PY{n}{EsN0\PYZus{}dB} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{n}{log10}\PY{p}{(}\PY{n}{log2}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{p}{)}\PY{o}{+} \PY{n}{EbN0\PYZus{}dB}
+              \PY{n}{simBEP} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{size}\PY{p}{(}\PY{n}{EbN0\PYZus{}dB}\PY{p}{)}\PY{p}{)}\PY{p}{)} 
+          
+              \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{size}\PY{p}{(}\PY{n}{EbN0\PYZus{}dB}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{xbb}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{QAM\PYZus{}gray\PYZus{}encode\PYZus{}bb}\PY{p}{(}\PY{n}{Nsymb}\PY{p}{,}\PY{n}{Ns}\PY{p}{,}\PY{n}{M}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{src}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{c+c1}{\PYZsh{} Enter the comm channel by adding noise (gaussian/phase)}
+                  \PY{n}{rbb} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{cpx\PYZus{}AWGN}\PY{p}{(}\PY{n}{xbb}\PY{p}{,}\PY{n}{EsN0\PYZus{}dB}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{,}\PY{n}{Ns}\PY{p}{)}
+                  \PY{n}{std\PYZus{}pn\PYZus{}deg} \PY{o}{=} \PY{l+m+mf}{1.0}
+                  \PY{n}{rbb\PYZus{}pn} \PY{o}{=} \PY{n}{rbb}\PY{o}{*}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{n}{j}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{pi}\PY{o}{*}\PY{n}{std\PYZus{}pn\PYZus{}deg}\PY{o}{*}\PY{n}{randn}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{xbb}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{360}\PY{p}{)}
+                  \PY{c+c1}{\PYZsh{} Decode the QAM symbols back to a serial bit stream}
+                  \PY{n}{data\PYZus{}hat} \PY{o}{=} \PY{n}{QAM\PYZus{}gray\PYZus{}decode}\PY{p}{(}\PY{n}{rbb\PYZus{}pn}\PY{p}{,}\PY{n}{M}\PY{p}{)}
+                  \PY{n}{Nbits}\PY{p}{,}\PY{n}{Nerrors} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{BPSK\PYZus{}BEP}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{data\PYZus{}hat}\PY{p}{)}
+                  \PY{n}{simBEP}\PY{p}{[}\PY{n}{ii}\PY{p}{]} \PY{o}{=} \PY{n}{Nerrors}\PY{o}{/}\PY{n}{Nbits}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BEP: Nbits = }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, Nerror = }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, Pe\PYZus{}est = }\PY{l+s+si}{\PYZpc{}1.3e}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PYZbs{}
+                   \PY{p}{(}\PY{n}{Nbits}\PY{p}{,} \PY{n}{Nerrors}\PY{p}{,} \PY{n}{Nerrors}\PY{o}{/}\PY{n}{Nbits}\PY{p}{)}\PY{p}{)}
+          
+              \PY{n}{disp}\PY{p}{(}\PY{n}{EbN0\PYZus{}dB}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} Sample BEP Plot}
+              \PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+              \PY{n}{legList} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+          
+          
+          
+              \PY{c+c1}{\PYZsh{} Plot Theoretical}
+              \PY{n}{Pe\PYZus{}thy\PYZus{}plotM2} \PY{o}{=} \PY{n}{MQAM\PYZus{}BEP}\PY{p}{(}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{n}{EbN0\PYZus{}dB\PYZus{}plot}\PY{o}{/}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,}\PY{n}{M}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{semilogy}\PY{p}{(}\PY{n}{EbN0\PYZus{}dB\PYZus{}plot}\PY{p}{,}\PY{n}{Pe\PYZus{}thy\PYZus{}plotM2}\PY{p}{)}
+              \PY{n}{scatter}
+              \PY{n}{legList}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M = }\PY{l+s+si}{\PYZob{}M\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+              \PY{c+c1}{\PYZsh{} Plot simulated}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{EbN0\PYZus{}dB}\PY{p}{,}\PY{n}{simBEP}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+              \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Probability of Bit Error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Received \PYZdl{}E\PYZus{}b/N\PYZus{}0\PYZdl{} (dB)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BPSK BEP M=64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+              \PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Theoretical Curve}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Simulated Points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+              \PY{n}{grid}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+          
+          \PY{n}{task5b}\PY{p}{(}\PY{n}{M}\PY{p}{,} \PY{n}{EbN0\PYZus{}dB\PYZus{}plot}\PY{p}{,} \PY{n}{EbN0\PYZus{}dB}\PY{p}{,} \PY{n}{Nsymb}\PY{p}{,} \PY{n}{Ns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+kmax =  0, taumax = 0
+BEP: Nbits = 1800000, Nerror = 1876, Pe\_est = 1.042e-03
+kmax =  0, taumax = 0
+BEP: Nbits = 1800000, Nerror = 669, Pe\_est = 3.717e-04
+kmax =  0, taumax = 0
+BEP: Nbits = 1800000, Nerror = 157, Pe\_est = 8.722e-05
+[15 16 17]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_104_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The 'flare-out' for 1deg phase noise is noticeable in the plot above.
+The phase noise increased the BEP above the theoretical for higher
+bit-energy to noise-power ratios.
+
+    \subsection{Task 6a}\label{task-6a}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}129}]:} \PY{n}{M} \PY{o}{=} \PY{l+m+mi}{64}
+          \PY{n}{Nsymb} \PY{o}{=} \PY{l+m+mi}{500}
+          \PY{n}{Ns} \PY{o}{=} \PY{l+m+mi}{50}
+          \PY{n}{EbN0\PYZus{}dB} \PY{o}{=} \PY{l+m+mi}{50} \PY{c+c1}{\PYZsh{} Make the addive noise negligible for now}
+          \PY{n}{EsN0\PYZus{}dB} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{n}{log10}\PY{p}{(}\PY{n}{log2}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{n}{EbN0\PYZus{}dB}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eb/N0 = }\PY{l+s+si}{\PYZpc{}4.2f}\PY{l+s+s1}{ dB and Es/N0 = }\PY{l+s+si}{\PYZpc{}4.2f}\PY{l+s+s1}{ dB}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{EbN0\PYZus{}dB}\PY{p}{,}\PY{n}{EsN0\PYZus{}dB}\PY{p}{)}\PY{p}{)}
+          \PY{n}{xbb}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{QAM\PYZus{}gray\PYZus{}encode\PYZus{}bb}\PY{p}{(}\PY{n}{Nsymb}\PY{p}{,}\PY{n}{Ns}\PY{p}{,}\PY{n}{M}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{src}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Enter the comm channel by adding noise}
+          \PY{n}{rbb} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{cpx\PYZus{}AWGN}\PY{p}{(}\PY{n}{xbb}\PY{p}{,}\PY{n}{EsN0\PYZus{}dB}\PY{p}{,}\PY{n}{Ns}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Enter the receiver by passing through the matched filter}
+          \PY{c+c1}{\PYZsh{} Note carrier frequency offset and phase tracking would likely be needed, but here}
+          \PY{c+c1}{\PYZsh{} both are zero to keep things simple.}
+          \PY{n}{y} \PY{o}{=} \PY{n}{signal}\PY{o}{.}\PY{n}{lfilter}\PY{p}{(}\PY{n}{b}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{rbb}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Timeout for an eye plot to check timing}
+          \PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+          \PY{n}{dc}\PY{o}{.}\PY{n}{eye\PYZus{}plot}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10000}\PY{p}{]}\PY{o}{.}\PY{n}{real}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{Ns}\PY{p}{,}\PY{l+m+mi}{12}\PY{o}{*}\PY{n}{Ns}\PY{p}{)} \PY{c+c1}{\PYZsh{} 12*Ns removes the filter transients}
+          \PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.2}\PY{p}{,}\PY{l+m+mf}{1.2}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.2}\PY{p}{,}\PY{l+m+mf}{1.2}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eyeplot of Inphase with SRC Pulse Shaping}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Eb/N0 = 50.00 dB and Es/N0 = 57.78 dB
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}129}]:} Text(0.5,1,'Eyeplot of Inphase with SRC Pulse Shaping')
+\end{Verbatim}
+            
+    
+    \begin{verbatim}
+<Figure size 432x144 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_107_3.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    By eyeplot above, optimum is: phase = mod(50,Ns) = 0
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}130}]:} \PY{n}{optimum} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{n}{phase} \PY{o}{=} \PY{n}{optimum} \PY{o}{+} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{}cuz we\PYZsq{}re supposed to}
+          
+          \PY{n}{M} \PY{o}{=} \PY{l+m+mi}{64}
+          \PY{n}{Nsymb} \PY{o}{=} \PY{l+m+mi}{500000}
+          \PY{n}{Ns} \PY{o}{=} \PY{l+m+mi}{50}
+          \PY{n}{EbN0\PYZus{}dB\PYZus{}plot} \PY{o}{=} \PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{)}
+          \PY{n}{EbN0\PYZus{}dB} \PY{o}{=} \PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{17}\PY{p}{,}\PY{l+m+mi}{19}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{task6a}\PY{p}{(}\PY{n}{M}\PY{p}{,} \PY{n}{Nsymp}\PY{p}{,} \PY{n}{Ns}\PY{p}{,} \PY{n}{EbN0\PYZus{}dB\PYZus{}plot}\PY{p}{,} \PY{n}{EbN0\PYZus{}dB}\PY{p}{,} \PY{n}{phase}\PY{p}{)}\PY{p}{:}
+              \PY{n}{simBEP} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+          
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{EbN0\PYZus{}dB}\PY{p}{:} 
+                  \PY{n}{EsN0\PYZus{}dB} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{n}{log10}\PY{p}{(}\PY{n}{log2}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{n}{i}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eb/N0 = }\PY{l+s+si}{\PYZpc{}4.2f}\PY{l+s+s1}{ dB and Es/N0 = }\PY{l+s+si}{\PYZpc{}4.2f}\PY{l+s+s1}{ dB}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{EsN0\PYZus{}dB}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{xbb}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{QAM\PYZus{}gray\PYZus{}encode\PYZus{}bb}\PY{p}{(}\PY{n}{Nsymb}\PY{p}{,}\PY{n}{Ns}\PY{p}{,}\PY{n}{M}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{src}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{c+c1}{\PYZsh{} Enter the comm channel by adding noise}
+                  \PY{n}{rbb} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{cpx\PYZus{}AWGN}\PY{p}{(}\PY{n}{xbb}\PY{p}{,}\PY{n}{EsN0\PYZus{}dB}\PY{p}{,}\PY{n}{Ns}\PY{p}{)}
+          
+                  \PY{c+c1}{\PYZsh{} Enter the receiver by passing through the matched filter}
+                  \PY{c+c1}{\PYZsh{} Note carrier frequency offset and phase tracking would likely be needed, but here}
+                  \PY{c+c1}{\PYZsh{} both are zero to keep things simple.}
+                  \PY{n}{y} \PY{o}{=} \PY{n}{signal}\PY{o}{.}\PY{n}{lfilter}\PY{p}{(}\PY{n}{b}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{rbb}\PY{p}{)}
+          
+                  \PY{c+c1}{\PYZsh{} Get down with dat signal}
+                  \PY{n}{z} \PY{o}{=} \PY{n}{ss}\PY{o}{.}\PY{n}{downsample}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{n}{Ns}\PY{p}{,}\PY{n}{phase}\PY{p}{)}
+          
+                  \PY{n}{data\PYZus{}hat} \PY{o}{=} \PY{n}{QAM\PYZus{}gray\PYZus{}decode}\PY{p}{(}\PY{n}{z}\PY{p}{,}\PY{n}{M}\PY{p}{)}
+                  \PY{n}{Nbits}\PY{p}{,}\PY{n}{Nerrors} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{BPSK\PYZus{}BEP}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{data\PYZus{}hat}\PY{p}{)}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BEP: Nbits = }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, Nerror = }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, Pe\PYZus{}est = }\PY{l+s+si}{\PYZpc{}1.3e}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PYZbs{}
+                   \PY{p}{(}\PY{n}{Nbits}\PY{p}{,} \PY{n}{Nerrors}\PY{p}{,} \PY{n}{Nerrors}\PY{o}{/}\PY{n}{Nbits}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{simBEP}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{Nerrors}\PY{o}{/}\PY{n}{Nbits}\PY{p}{)}
+                     
+          
+          
+              \PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+              \PY{n}{legList} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+          
+              \PY{c+c1}{\PYZsh{} Plot Theoretical}
+              \PY{n}{Pe\PYZus{}thy\PYZus{}plotM2} \PY{o}{=} \PY{n}{MQAM\PYZus{}BEP}\PY{p}{(}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{n}{EbN0\PYZus{}dB\PYZus{}plot}\PY{o}{/}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,}\PY{n}{M}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{semilogy}\PY{p}{(}\PY{n}{EbN0\PYZus{}dB\PYZus{}plot}\PY{p}{,}\PY{n}{Pe\PYZus{}thy\PYZus{}plotM2}\PY{p}{)}
+              \PY{n}{scatter}
+              \PY{n}{legList}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M = }\PY{l+s+si}{\PYZob{}M\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+              \PY{c+c1}{\PYZsh{} Plot simulated}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{EbN0\PYZus{}dB}\PY{p}{,}\PY{n}{simBEP}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+              
+              \PY{c+c1}{\PYZsh{} use y=mx+b to get line formula}
+              \PY{n}{m} \PY{o}{=} \PY{p}{(}\PY{n}{log10}\PY{p}{(}\PY{n}{simBEP}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{log10}\PY{p}{(}\PY{n}{simBEP}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{EbN0\PYZus{}dB}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{EbN0\PYZus{}dB}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+              \PY{n}{b} \PY{o}{=} \PY{n}{log10}\PY{p}{(}\PY{n}{simBEP}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{m}\PY{o}{*}\PY{n}{EbN0\PYZus{}dB}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+              \PY{n}{y} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}
+              \PY{n}{x} \PY{o}{=} \PY{p}{(}\PY{n}{log10}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{b}\PY{p}{)}\PY{o}{/}\PY{n}{m}
+              \PY{c+c1}{\PYZsh{} get degredation based on first value where theoretical curve crosses 10**\PYZhy{}4}
+              \PY{n}{x\PYZus{}theory} \PY{o}{=} \PY{n}{EbN0\PYZus{}dB\PYZus{}plot}\PY{p}{[}\PY{n}{where}\PY{p}{(}\PY{n}{Pe\PYZus{}thy\PYZus{}plotM2} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{]}
+              \PY{n}{x\PYZus{}theory} \PY{o}{=} \PY{n}{x\PYZus{}theory}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Approx. BEP degredation at BEP=10\PYZca{}\PYZhy{}4 : }\PY{l+s+si}{\PYZpc{}.4f}\PY{l+s+s1}{dB}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{x\PYZus{}theory}\PY{p}{)}\PY{p}{)}
+          
+              \PY{n}{x\PYZus{}plt} \PY{o}{=} \PY{p}{[}\PY{n+nb}{min}\PY{p}{(}\PY{n}{EbN0\PYZus{}dB\PYZus{}plot}\PY{p}{)}\PY{p}{,} \PY{n+nb}{max}\PY{p}{(}\PY{n}{EbN0\PYZus{}dB\PYZus{}plot}\PY{p}{)}\PY{p}{]}
+              \PY{n}{y\PYZus{}plt} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{p}{(} \PY{n}{m}\PY{o}{*}\PY{n}{x\PYZus{}plt}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}  \PY{o}{+} \PY{n}{b} \PY{p}{)}\PY{p}{,}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{p}{(} \PY{n}{m}\PY{o}{*}\PY{n}{x\PYZus{}plt}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{b} \PY{p}{)}\PY{p}{]}
+              
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}plt}\PY{p}{,}\PY{n}{y\PYZus{}plt}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              
+              \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Probability of Bit Error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Received \PYZdl{}E\PYZus{}b/N\PYZus{}0\PYZdl{} (dB)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BPSK BEP M=64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{grid}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+              
+              \PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Theoretical Curve}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Simulated Points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Line approx.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{task6a}\PY{p}{(}\PY{n}{M}\PY{p}{,} \PY{n}{Nsymb}\PY{p}{,} \PY{n}{Ns}\PY{p}{,} \PY{n}{EbN0\PYZus{}dB\PYZus{}plot}\PY{p}{,} \PY{n}{EbN0\PYZus{}dB}\PY{p}{,} \PY{n}{phase}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Eb/N0 = 17.00 dB and Es/N0 = 24.78 dB
+kmax =  0, taumax = 72
+BEP: Nbits = 2999928, Nerror = 511, Pe\_est = 1.703e-04
+Eb/N0 = 18.00 dB and Es/N0 = 25.78 dB
+kmax =  0, taumax = 72
+BEP: Nbits = 2999928, Nerror = 114, Pe\_est = 3.800e-05
+
+Approx. BEP degredation at BEP=10\^{}-4 : 0.3550dB
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_109_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The BEP degredation is relatively low, at roughly 0.4dB
+
+    \subsection{Task 6b}\label{task-6b}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}131}]:} \PY{n}{optimum} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{n}{phase} \PY{o}{=} \PY{n}{optimum} \PY{o}{+} \PY{l+m+mi}{2} \PY{c+c1}{\PYZsh{}cuz we\PYZsq{}re supposed to}
+          \PY{n}{M} \PY{o}{=} \PY{l+m+mi}{64}
+          \PY{n}{Nsymb} \PY{o}{=} \PY{l+m+mi}{500000}
+          \PY{n}{Ns} \PY{o}{=} \PY{l+m+mi}{50}
+          \PY{n}{EbN0\PYZus{}dB\PYZus{}plot} \PY{o}{=} \PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{22}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{)}
+          \PY{n}{EbN0\PYZus{}dB} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{21}\PY{p}{]}
+          
+          \PY{n}{task6a}\PY{p}{(}\PY{n}{M}\PY{p}{,} \PY{n}{Nsymb}\PY{p}{,} \PY{n}{Ns}\PY{p}{,} \PY{n}{EbN0\PYZus{}dB\PYZus{}plot}\PY{p}{,} \PY{n}{EbN0\PYZus{}dB}\PY{p}{,} \PY{n}{phase}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Eb/N0 = 20.00 dB and Es/N0 = 27.78 dB
+kmax =  0, taumax = 72
+BEP: Nbits = 2999928, Nerror = 476, Pe\_est = 1.587e-04
+Eb/N0 = 21.00 dB and Es/N0 = 28.78 dB
+kmax =  0, taumax = 72
+BEP: Nbits = 2999928, Nerror = 214, Pe\_est = 7.134e-05
+
+Approx. BEP degredation at BEP=10\^{}-4 : 3.5775dB
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_112_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The increased timing skew had the effect of increasing the BEP
+degredation, which is now between 3 and 4 dB.
+
+    \subsection{Task 7}\label{task-7}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}132}]:} \PY{n}{Nstart} \PY{o}{=} \PY{l+m+mi}{20000}
+          \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{60000}\PY{p}{;} \PY{c+c1}{\PYZsh{} number of speech samples to process}
+          \PY{n}{fs}\PY{p}{,}\PY{n}{m1} \PY{o}{=} \PY{n}{ss}\PY{o}{.}\PY{n}{from\PYZus{}wav}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OSR\PYZus{}uk\PYZus{}000\PYZus{}0050\PYZus{}8k.wav}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{m1} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{m1}\PY{p}{[}\PY{n}{Nstart}\PY{p}{:}\PY{n}{Nstart}\PY{o}{+}\PY{n}{N}\PY{p}{]}
+          \PY{n}{N\PYZus{}PCM} \PY{o}{=} \PY{l+m+mi}{16}
+          \PY{n}{data\PYZus{}ext} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{PCM\PYZus{}encode}\PY{p}{(}\PY{n}{m1}\PY{p}{,}\PY{n}{N\PYZus{}PCM}\PY{p}{)} \PY{c+c1}{\PYZsh{} Obtain external data bits for QAM\PYZus{}gray\PYZus{}encode}
+          \PY{n}{M} \PY{o}{=} \PY{l+m+mi}{256} 
+          \PY{n}{Ns} \PY{o}{=} \PY{l+m+mi}{8} \PY{c+c1}{\PYZsh{} With Ns=10 we have a waveform}
+          \PY{n}{EbN0\PYZus{}dB} \PY{o}{=} \PY{l+m+mi}{100} \PY{c+c1}{\PYZsh{} Make the addive noise negligible for now}
+          \PY{n}{EsN0\PYZus{}dB} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{n}{log10}\PY{p}{(}\PY{n}{log2}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{n}{EbN0\PYZus{}dB}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eb/N0 = }\PY{l+s+si}{\PYZpc{}4.2f}\PY{l+s+s1}{ dB and Es/N0 = }\PY{l+s+si}{\PYZpc{}4.2f}\PY{l+s+s1}{ dB}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{EbN0\PYZus{}dB}\PY{p}{,}\PY{n}{EsN0\PYZus{}dB}\PY{p}{)}\PY{p}{)}
+          \PY{n}{xbb}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{data\PYZus{}ext\PYZus{}trim} \PY{o}{=} \PY{n}{QAM\PYZus{}gray\PYZus{}encode\PYZus{}bb}\PY{p}{(}\PY{k+kc}{None}\PY{p}{,}\PY{n}{Ns}\PY{p}{,}\PY{n}{M}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{src}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ext\PYZus{}data}\PY{o}{=}\PY{n}{data\PYZus{}ext}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Enter the comm channel by adding noise}
+          \PY{n}{rbb} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{cpx\PYZus{}AWGN}\PY{p}{(}\PY{n}{xbb}\PY{p}{,}\PY{n}{EsN0\PYZus{}dB}\PY{p}{,}\PY{n}{Ns}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Enter the receiver by passing through the matched filter}
+          \PY{c+c1}{\PYZsh{} Note carrier frequency offset and phase tracking would likely be needed, but here}
+          \PY{c+c1}{\PYZsh{} both are zero to keep things simple.}
+          \PY{n}{y} \PY{o}{=} \PY{n}{signal}\PY{o}{.}\PY{n}{lfilter}\PY{p}{(}\PY{n}{b}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{rbb}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Symbol synchronize manually}
+          \PY{n}{z} \PY{o}{=} \PY{n}{ss}\PY{o}{.}\PY{n}{downsample}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{n}{Ns}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{data\PYZus{}ext\PYZus{}hat} \PY{o}{=} \PY{n}{QAM\PYZus{}gray\PYZus{}decode}\PY{p}{(}\PY{n}{z}\PY{p}{,}\PY{n}{M}\PY{p}{)}
+          \PY{n}{Nbits}\PY{p}{,}\PY{n}{Nerrors} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{BPSK\PYZus{}BEP}\PY{p}{(}\PY{n}{data\PYZus{}ext\PYZus{}trim}\PY{p}{,}\PY{n}{data\PYZus{}ext\PYZus{}hat}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BEP: Nbits = }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, Nerror = }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, Pe\PYZus{}est = }\PY{l+s+si}{\PYZpc{}1.3e}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PYZbs{}
+           \PY{p}{(}\PY{n}{Nbits}\PY{p}{,} \PY{n}{Nerrors}\PY{p}{,} \PY{n}{Nerrors}\PY{o}{/}\PY{n}{Nbits}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Eb/N0 = 100.00 dB and Es/N0 = 109.03 dB
+kmax =  0, taumax = 96
+BEP: Nbits = 959904, Nerror = 0, Pe\_est = 0.000e+00
+
+    \end{Verbatim}
+
+    Determine Offset: - Assume total delay of 12 symbols - For
+\(M = 256 ->\) transmit 8 bits per signal - So Total Bit Delay:
+\(8*12 = 96\) - Is this an integer multiple of N\_PCM? - \(96/16 = 6\),
+which is an integer - Thus N\_offset = \(8*6\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}133}]:} \PY{n}{N\PYZus{}offset} \PY{o}{=} \PY{l+m+mi}{8}\PY{o}{*}\PY{l+m+mi}{6}
+          \PY{n}{data\PYZus{}ext\PYZus{}hat\PYZus{}trim} \PY{o}{=} \PY{n}{data\PYZus{}ext\PYZus{}hat}\PY{p}{[}\PY{n}{N\PYZus{}offset}\PY{p}{:}\PYZbs{}
+           \PY{n}{N\PYZus{}offset}\PY{o}{+}\PY{n}{N\PYZus{}PCM}\PY{o}{*}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data\PYZus{}ext\PYZus{}hat}\PY{p}{)}\PY{o}{/}\PY{n}{N\PYZus{}PCM}\PY{p}{)}\PY{p}{]}
+          \PY{n}{m1\PYZus{}hat} \PY{o}{=} \PY{n}{dc}\PY{o}{.}\PY{n}{PCM\PYZus{}decode}\PY{p}{(}\PY{n}{data\PYZus{}ext\PYZus{}hat\PYZus{}trim}\PY{p}{,}\PY{n}{N\PYZus{}PCM}\PY{p}{)}
+          \PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{211}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{m1\PYZus{}hat}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Speech Amplitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sample Index at 8 ksps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A Portion of OSR\PYZus{}uk\PYZus{}000\PYZus{}0050\PYZus{}8k.wav (Encoded/Decoded)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+          \PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{211}\PY{p}{)}
+          \PY{n}{plot}\PY{p}{(}\PY{n}{m1\PYZus{}hat}\PY{p}{)}
+          \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Speech Amplitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sample Index at 8 ksps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A Portion of OSR\PYZus{}uk\PYZus{}000\PYZus{}0050\PYZus{}8k.wav (original)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{grid}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_117_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_117_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The signal graph is identical to the original signal graph, indicating
+that the decoded speech figure matches the original sound file.
+
+    \subsubsection{Audio Verification:}\label{audio-verification}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}134}]:} \PY{n}{ss}\PY{o}{.}\PY{n}{to\PYZus{}wav}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Task7.wav}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{8000}\PY{p}{,}\PY{n}{m1\PYZus{}hat}\PY{p}{)}
+          \PY{n}{Audio}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Task7.wav}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}134}]:} <IPython.lib.display.Audio object>
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
